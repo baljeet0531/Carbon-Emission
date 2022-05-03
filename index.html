@@ -11,10 +11,10 @@
     <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
 
     <meta property="og:title" content="Carbon">
-    <meta property="og:image" content="./src/co2_icon.png">
+    <meta property="og:image" content="./src/co2_icon.jpg">
     <meta property="og:description" content="">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./src/co2_icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./src/co2_icon.jpg" />
     <link rel="manifest" href="./manifest.json">
 
     <script src="./src/app.js"></script>
@@ -70,7 +70,6 @@
             </div>
             <div id="chart_div"></div>
         </div>
-        +
         <div id="daily_checkin_page" class="mySlides fade">
             <div id="cont_text_div">
                 <p id="cont_text">已連續<span id="cont_number">4</span>天</p>
@@ -87,65 +86,65 @@
                     <th>SUN</th>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
+                    <td><img src="./src/check.png"></td>
                 </tr>
             </table>
         </div>
         <div id="dot_div" style="text-align:center">
             <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2), clickdraw()"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(2), drawDonut()"></span>
+            <span class="dot" onclick="currentSlide(3), drawTable()"></span>
         </div>
     </div>
     <!-- <form onsubmit="return send()" method="POST">
@@ -217,14 +216,45 @@
             };
         }
 
-        var firstClick = true;
+        var chartFirstClick = true;
 
-        function clickdraw() {
-            if (firstClick) {
+        function drawDonut() {
+            if (chartFirstClick) {
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
                 chart.draw(data, options);
-                firstClick = false;
+                chartFirstClick = false;
             }
+        }
+    </script>
+    <script>
+
+        var tableFirstClick = true;
+        var todayTD;
+        function drawTable() {
+            const today = new Date()
+            let todayDate = today.getDate()
+
+            const firstDate = new Date()
+            firstDate.setDate(1)
+            let firstWeekday = firstDate.getDay()
+
+            firstWeekday -= 1
+            if (firstWeekday == -1) {
+                firstWeekday = 6;
+            }
+
+            if (tableFirstClick) {
+                let i = 0;
+                dates_img = document.querySelectorAll("td img")
+                for (i = firstWeekday; i < todayDate + firstWeekday - 1; i++) {
+                    dates_img[i].style.display = "block";
+                }
+                todayTD = document.querySelectorAll("td")[i]
+                todayTD.style.backgroundColor = "#b8e6e3";
+
+                tableFirstClick = false;
+            }
+
         }
     </script>
 </body>

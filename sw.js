@@ -5,11 +5,12 @@ const cachedFiles = [
     './manifest.json',
     './src/co2_icon.jpg',
     './src/menu.png',
-    './src/style.css'
+    './src/style.css',
+    './src/check.png'
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v4';
+const cacheKey = 'demo-sw-v13';
 
 // install, a good time to preload cache
 self.addEventListener('install', event => {

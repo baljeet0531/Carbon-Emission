@@ -41,16 +41,6 @@ p {
     left: 0;
 }
 
-
-/* #daily_info_page {
-    display: block;
-    position: absolute;
-    height: 487px;
-    width: 100vw;
-    top: 0;
-    left: 0;
-} */
-
 #vice_info {
     position: absolute;
     height: 70px;
@@ -69,7 +59,7 @@ p {
     height: 315px;
     width: 315px;
     top: 148px;
-    left: calc((100vw - 315px)/2);
+    left: calc((100vw - 331px)/2);
 
     border: 8px solid #6bcbca;
     border-radius: 157.5px;
@@ -119,16 +109,6 @@ p {
 #daily_co2e_unit {
     font-size: 30px;
 }
-
-/* #piechart_page {
-    display: block;
-    position: absolute;
-    height: 487px;
-    width: 100vw;
-    top: 0;
-    left: 0;
-
-} */
 
 #chart_btn_div {
     position: absolute;
@@ -215,6 +195,16 @@ th {
     font-size: 10px;
 }
 
+td {
+    height: 15%;
+}
+
+td img {
+    width: 100%;
+    vertical-align: middle;
+    display: none;
+}
+
 caption {
     margin-bottom: 2px;
     font-weight: 600;
@@ -240,7 +230,6 @@ caption {
 
 .mySlides {
     display: none;
-    /* display: block; */
     position: absolute;
     height: 487px;
     width: 100vw;
