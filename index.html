@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <link href="./src/style.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
+
+    <meta property="og:title" content="Carbon">
+    <meta property="og:image" content="./src/co2_icon.png">
+    <meta property="og:description" content="">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./src/co2_icon.png" />
+    <link rel="manifest" href="./manifest.json">
+
+    <script src="./src/app.js"></script>
+    <script>
+        function send() {
+            let chosen_file = document.getElementById("chosen-file").files[0];
+            //console.log(chosen_file)
+            let formData = new FormData();
+
+            formData.append("file", chosen_file);
+            fetch('/upload', { method: "POST", body: formData })
+                .then((response) => {
+                    console.log(response.json());
+                }).catch((error) => {
+                    console.log(error);
+                });
+            return false
+        }
+    </script>
+
+    <title>Carbon</title>
+</head>
+<meta>
+
+<body>
+    <div id="navigation_bar">
+        <img id="menu_icon" src="./src/menu.png">
+    </div>
+
+    <div id="main_frame">
+        <div id="daily_info_page" class="mySlides fade">
+            <div id="vice_info">
+                <p id="daily_distance_title">今日移動距離</p>
+                <p id="weekly_co2e_title">週累積碳排</p>
+                <p id="daily_distance_value">76 km</p>
+                <p id="weekly_co2e_value">9.8 kg CO<sub>2</sub>e</p>
+            </div>
+            <div id="main_info">
+                <p id="weekday">SUN</p>
+                <p id="daily_co2e_title">今日移動碳排</p>
+                <p id="daily_co2e_value">34</p>
+                <p id="daily_co2e_unit">kg CO<sub>2</sub>e</p>
+            </div>
+        </div>
+        <div id="piechart_page" class="mySlides fade">
+            <div id="chart_btn_div">
+                <div id="today_chart_button">
+                    <p class="button">今日</p>
+                </div>
+                <div id="weekly_chart_button">
+                    <p class="button">本週</p>
+                </div>
+            </div>
+            <div id="chart_div"></div>
+        </div>
+        +
+        <div id="daily_checkin_page" class="mySlides fade">
+            <div id="cont_text_div">
+                <p id="cont_text">已連續<span id="cont_number">4</span>天</p>
+            </div>
+            <table id="checkin_table">
+                <caption>簽到表</caption>
+                <tr>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THU</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                    <th>SUN</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="dot_div" style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2), clickdraw()"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+    <!-- <form onsubmit="return send()" method="POST">
+            <p><input id="chosen-file" type="file" value="choose file" accept=".zip,.rar,.7zip" /></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form> -->
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        var data, options;
+
+        function drawChart() {
+            data = google.visualization.arrayToDataTable([
+                ['Type', 'Distance'],
+                ['汽車', 30],
+                ['走路', 25],
+                ['腳踏車', 35],
+                ['機車', 10],
+            ]);
+
+            options = {
+                pieHole: 0.4,
+                legend: {
+                    position: 'labeled',
+                    textStyle: {
+                        fontName: 'DM Sans'
+                    }
+                },
+                slices: {
+                    0: { color: '#1E8981' },
+                    1: { color: '#5CA6A1' },
+                    2: { color: '#8EC3C1' },
+                    3: { color: '#BEE0E1' },
+                },
+                chartArea: {
+                    left: 'calc((100vw - 274px)/2)', top: '5%', width: '80%', height: '80%'
+                },
+                pieSliceTextStyle: {
+                    color: 'black',
+                    fontName: 'DM Sans'
+                }
+            };
+        }
+
+        var firstClick = true;
+
+        function clickdraw() {
+            if (firstClick) {
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+                firstClick = false;
+            }
+        }
+    </script>
+</body>

@@ -1,0 +1,14 @@
+{
+    "name": "Carbon Emission",
+    "short_name": "CARBON",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./src/co2_icon.jpg",
+            "sizes": "500x500",
+            "type": "image/png"
+        }
+    ]
+}
