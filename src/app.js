@@ -40,3 +40,34 @@ if ('serviceWorker' in navigator) {
 }
 
 
+
+
+const menuIcon = document.getElementById("menu_icon")
+const menuList = document.getElementById("menu_list")
+var showList = false;
+var listInterval;
+
+menuIcon.addEventListener("click", function () {
+    clearInterval(listInterval)
+    menuListLeft = parseInt(getComputedStyle(menuList).getPropertyValue("left"));
+    if (showList) {
+        showList = !showList
+        listInterval = setInterval(function () {
+            menuListLeft -= 10;
+            menuList.style.left = menuListLeft + 'px';
+            if (getComputedStyle(menuList).getPropertyValue("left") == "-150px") {
+                clearInterval(listInterval);
+            }
+        }, 15)
+    }
+    else {
+        showList = !showList
+        listInterval = setInterval(function () {
+            menuListLeft += 10;
+            menuList.style.left = menuListLeft + 'px';
+            if (getComputedStyle(menuList).getPropertyValue("left") == "0px") {
+                clearInterval(listInterval);
+            }
+        }, 15)
+    }
+})

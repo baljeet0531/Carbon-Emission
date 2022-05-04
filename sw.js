@@ -10,7 +10,7 @@ const cachedFiles = [
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v13';
+const cacheKey = 'demo-sw-v16';
 
 // install, a good time to preload cache
 self.addEventListener('install', event => {

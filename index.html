@@ -14,10 +14,11 @@
     <meta property="og:image" content="./src/co2_icon.jpg">
     <meta property="og:description" content="">
 
+    <link rel="icon" type="image/jpeg" href="./src/co2_icon.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="./src/co2_icon.jpg" />
     <link rel="manifest" href="./manifest.json">
 
-    <script src="./src/app.js"></script>
+
     <script>
         function send() {
             let chosen_file = document.getElementById("chosen-file").files[0];
@@ -43,6 +44,7 @@
     <div id="navigation_bar">
         <img id="menu_icon" src="./src/menu.png">
     </div>
+
 
     <div id="main_frame">
         <div id="daily_info_page" class="mySlides fade">
@@ -147,11 +149,37 @@
             <span class="dot" onclick="currentSlide(3), drawTable()"></span>
         </div>
     </div>
+
+    <div id="menu_list">
+        <div id="home" class="menu">
+            <p>首頁</p>
+        </div>
+        <div id="notification" class="menu">
+            <p>通知</p>
+        </div>
+        <div id="reward" class="menu">
+            <p>獎勵領取</p>
+        </div>
+        <div id="rank" class="menu">
+            <p>排行榜</p>
+        </div>
+        <div id="knowledge" class="menu">
+            <p>知識專區</p>
+        </div>
+        <div id="QA" class="menu">
+            <p>Q&A</p>
+        </div>
+        <div id="logout" class="menu">
+            <p>登出</p>
+        </div>
+    </div>
     <!-- <form onsubmit="return send()" method="POST">
             <p><input id="chosen-file" type="file" value="choose file" accept=".zip,.rar,.7zip" /></p>
             <p><input type="submit" value="Submit" /></p>
         </form> -->
 
+
+    <script src="./src/app.js"></script>
     <script>
         let slideIndex = 1;
         showSlides(slideIndex);
@@ -245,11 +273,12 @@
 
             if (tableFirstClick) {
                 let i = 0;
-                dates_img = document.querySelectorAll("td img")
+                dates_img = document.querySelectorAll("#checkin_table td img")
                 for (i = firstWeekday; i < todayDate + firstWeekday - 1; i++) {
                     dates_img[i].style.display = "block";
                 }
-                todayTD = document.querySelectorAll("td")[i]
+                console.log(i)
+                todayTD = document.querySelectorAll("#checkin_table td")[i]
                 todayTD.style.backgroundColor = "#b8e6e3";
 
                 tableFirstClick = false;

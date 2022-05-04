@@ -9,7 +9,6 @@ body {
 p {
     margin: 0;
     text-align: center;
-    line-height: 100%;
     vertical-align: middle;
 }
 
@@ -30,6 +29,32 @@ p {
     height: 57px;
     top: 5px;
     left: 5px;
+}
+
+#menu_list {
+    position: absolute;
+    height: 420px;
+    width: 149px;
+    top: 67px;
+    left: -150px;
+
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    background-color: #87d8d2;
+    border-bottom-right-radius: 10px;
+
+}
+
+.menu {
+    width: 100%;
+    line-height: 60px;
+    text-align: center;
+}
+
+.menu p {
+    color: #fffcf8;
+    font-size: 21px;
+    font-weight: 600;
 }
 
 #main_frame {
@@ -67,6 +92,10 @@ p {
     display: grid;
     grid-template-rows: 20px 30px 60px 30px;
     align-content: space-evenly;
+}
+
+#main_info p {
+    line-height: 100%;
 }
 
 #daily_distance_title {
@@ -253,5 +282,17 @@ caption {
 
     to {
         opacity: 1
+    }
+}
+
+@keyframes movein {
+    to {
+        left: 0;
+    }
+}
+
+@keyframes moveout {
+    to {
+        left: -149px;
     }
 }
