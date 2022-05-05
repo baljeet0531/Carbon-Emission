@@ -330,13 +330,6 @@ caption {
     padding-bottom: 13px;
 }
 
-
-
-
-#reward_div {
-    display: block;
-}
-
 .reward {
 
     position: relative;
@@ -381,4 +374,54 @@ caption {
     margin-top: 56px;
     margin-left: 5%;
     padding-bottom: 11px;
+}
+
+#knowledge_div {
+    display: block;
+}
+
+.knowledge {
+
+    position: relative;
+    min-height: 80px;
+    height: auto;
+    width: 330px;
+    left: calc((100vw - 330px)/2);
+    margin-top: 60px;
+
+    display: block;
+
+    background-color: #e8e6e6;
+    border-radius: 10px;
+
+    word-wrap: break-word;
+}
+
+.knowledge .border {
+    width: 56px;
+    height: 5px;
+    top: 0;
+    left: 137px;
+    position: absolute;
+    border-radius: 2.5px;
+    background-color: #03989e;
+}
+
+.knowledge_title {
+    width: 90%;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 14px;
+    margin-left: 5%;
+}
+
+
+.knowledge_content {
+    width: 80%;
+    font-size: 18px;
+    text-align: left;
+    margin-top: 7px;
+    margin-left: 10%;
+    padding-bottom: 13px;
 }
