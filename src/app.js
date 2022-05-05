@@ -40,8 +40,6 @@ if ('serviceWorker' in navigator) {
 }
 
 
-
-
 const menuIcon = document.getElementById("menu_icon")
 const menuList = document.getElementById("menu_list")
 var showList = false;

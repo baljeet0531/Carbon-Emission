@@ -6,35 +6,15 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-
-    <link href="./src/style.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
-
     <meta property="og:title" content="Carbon">
     <meta property="og:image" content="./src/co2_icon.jpg">
     <meta property="og:description" content="">
 
+    <link href="./src/style.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
     <link rel="icon" type="image/jpeg" href="./src/co2_icon.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="./src/co2_icon.jpg" />
     <link rel="manifest" href="./manifest.json">
-
-
-    <script>
-        function send() {
-            let chosen_file = document.getElementById("chosen-file").files[0];
-            //console.log(chosen_file)
-            let formData = new FormData();
-
-            formData.append("file", chosen_file);
-            fetch('/upload', { method: "POST", body: formData })
-                .then((response) => {
-                    console.log(response.json());
-                }).catch((error) => {
-                    console.log(error);
-                });
-            return false
-        }
-    </script>
 
     <title>Carbon</title>
 </head>
@@ -46,7 +26,7 @@
     </div>
 
 
-    <div id="main_frame">
+    <div id="home_div" class="main_frame">
         <div id="daily_info_page" class="mySlides fade">
             <div id="vice_info">
                 <p id="daily_distance_title">今日移動距離</p>
@@ -149,6 +129,33 @@
             <span class="dot" onclick="currentSlide(3), drawTable()"></span>
         </div>
     </div>
+
+    <div id="notification_div" class="main_frame">
+        <div id="weekly_mission" class="notification_type">
+            <div class="border"></div>
+            <p class="notifi_title">本週任務</p>
+            <p class="notifi_content">行走移動佔總移動40%</p>
+        </div>
+        <div id="rookie_mission" class="notification_type">
+            <div class="border"></div>
+            <p class="notifi_title">新手任務</p>
+        </div>
+        <div id="get_reward_" class="notification_type">
+            <div class="border"></div>
+            <p class="notifi_title">獎勵領取</p>
+        </div>
+        <div id="rank_notify" class="notification_type">
+            <div class="border"></div>
+            <p class="notifi_title">排行通知</p>
+        </div>
+    </div>
+    <div id="reward_div" class="main_frame"></div>
+    <div id="rank_div" class="main_frame"></div>
+    <div id="knowledge_div" class="main_frame"></div>
+    <div id="QA_div" class="main_frame"></div>
+
+
+
 
     <div id="menu_list">
         <div id="home" class="menu">
@@ -284,6 +291,22 @@
                 tableFirstClick = false;
             }
 
+        }
+    </script>
+    <script>
+        function send() {
+            let chosen_file = document.getElementById("chosen-file").files[0];
+            //console.log(chosen_file)
+            let formData = new FormData();
+
+            formData.append("file", chosen_file);
+            fetch('/upload', { method: "POST", body: formData })
+                .then((response) => {
+                    console.log(response.json());
+                }).catch((error) => {
+                    console.log(error);
+                });
+            return false
         }
     </script>
 </body>
