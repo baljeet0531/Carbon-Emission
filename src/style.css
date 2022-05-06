@@ -160,7 +160,7 @@ p {
     border-radius: 15px;
 }
 
-p.button {
+#chart_btn_div p {
     width: 100%;
     font-size: 20px;
     font-weight: 600;
@@ -211,30 +211,30 @@ table {
     table-layout: fixed;
 }
 
-table,
-th,
-td {
+#daily_checkin_page table,
+#daily_checkin_page th,
+#daily_checkin_page td {
     border: 0.5px solid #a6a6a6;
     border-collapse: collapse;
 }
 
-th {
+#daily_checkin_page th {
     height: 10%;
     background-color: #e8e6e6;
     font-size: 10px;
 }
 
-td {
+#daily_checkin_page td {
     height: 15%;
 }
 
-td img {
+#daily_checkin_page td img {
     width: 100%;
     vertical-align: middle;
     display: none;
 }
 
-caption {
+#daily_checkin_page caption {
     margin-bottom: 2px;
     font-weight: 600;
 }
@@ -376,6 +376,77 @@ caption {
     padding-bottom: 11px;
 }
 
+
+#rank_div {
+    display: block;
+}
+
+#rank_btn_div {
+    position: absolute;
+    height: 35px;
+    width: 100vw;
+    top: 46px;
+    left: 0;
+
+    display: grid;
+    grid-template-columns: 96px 96px;
+    column-gap: 4px;
+    justify-content: center;
+}
+
+#department_rank_button,
+#personal_rank_button {
+    vertical-align: middle;
+    background-color: #e8e6e6;
+    border-radius: 15px;
+}
+
+#rank_btn_div p {
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 35px;
+}
+
+
+#rank_table {
+    position: absolute;
+    height: 424px;
+    width: 304px;
+    top: 92px;
+    left: calc((100vw - 304px)/2);
+    border-spacing: 0px;
+}
+
+
+#rank_div th {
+    height: 40px;
+    background-color: #e8e6e6;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+#rank_div th:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#rank_div th:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+#rank_div td {
+    height: 48px;
+    text-align: center;
+}
+
+#rank_div td img {
+    width: 34px;
+    vertical-align: middle;
+}
+
 .knowledge {
 
     position: relative;
@@ -420,10 +491,6 @@ caption {
     margin-top: 7px;
     margin-left: 10%;
     padding-bottom: 13px;
-}
-
-#QA_div {
-    display: block;
 }
 
 .question {

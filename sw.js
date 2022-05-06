@@ -1,16 +1,25 @@
 // try edit the cached files and/or the `cachedFiles` list
 const cachedFiles = [
-    './src/app.js',
     './index.html',
     './manifest.json',
+    './src/1st.png',
+    './src/2nd.png',
+    './src/3rd.png',
+    './src/4th.png',
+    './src/5th.png',
+    './src/6th.png',
+    './src/7th.png',
+    './src/8th.png',
+    './src/app.js',
+    './src/check.png',
     './src/co2_icon.jpg',
     './src/menu.png',
     './src/style.css',
-    './src/check.png'
+
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v7';
+const cacheKey = 'demo-sw-v9';
 
 // install, a good time to preload cache
 self.addEventListener('install', event => {
