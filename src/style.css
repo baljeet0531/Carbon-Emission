@@ -66,6 +66,12 @@ p {
     left: 0;
 }
 
+
+
+#home_div {
+    display: block;
+}
+
 #vice_info {
     position: absolute;
     height: 70px;
@@ -374,11 +380,6 @@ table {
     margin-top: 56px;
     margin-left: 5%;
     padding-bottom: 11px;
-}
-
-
-#rank_div {
-    display: block;
 }
 
 #rank_btn_div {

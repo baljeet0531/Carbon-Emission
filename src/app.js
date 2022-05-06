@@ -22,7 +22,7 @@ navigator.serviceWorker.addEventListener('controllerchange',
 function promptUserToRefresh(reg) {
     // this is just an example
     // don't use window.confirm in real life; it's terrible
-    if (window.confirm("New version available! OK to refresh?")) {
+    if (window.confirm("app更新已下載，按下OK載入新版本?")) {
         reg.waiting.postMessage('skipWaiting');
     }
 }
@@ -69,3 +69,20 @@ menuIcon.addEventListener("click", function () {
         }, 15)
     }
 })
+
+
+const menuClass = document.getElementsByClassName("menu");
+const frameClass = document.getElementsByClassName("main_frame")
+
+//length - 1 for not adding event to logout page
+for (i = 0; i < menuClass.length - 1; i++) {
+    menuClass[i].addEventListener("click", function (event) {
+        targetTab = event.path[1].id
+        targetFrame = targetTab.slice(0, -4) + "_div"
+        for (j = 0; j < frameClass.length; j++) {
+            frameClass[j].style.display = "none";
+        }
+        document.getElementById(targetFrame).style.display = "block";
+        menuIcon.click();
+    })
+}
