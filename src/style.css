@@ -34,7 +34,7 @@ p {
 #menu_list {
     position: absolute;
     height: 420px;
-    width: 149px;
+    width: 150px;
     top: 67px;
     left: -150px;
 
@@ -47,14 +47,21 @@ p {
 
 .menu {
     width: 100%;
-    line-height: 60px;
     text-align: center;
 }
 
-.menu p {
+.menu a {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+
     color: #fffcf8;
     font-size: 21px;
     font-weight: 600;
+    line-height: 60px;
+    text-decoration: none;
+    text-align: center;
+
 }
 
 .main_frame {

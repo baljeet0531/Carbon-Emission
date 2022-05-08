@@ -1,4 +1,3 @@
-// try edit the cached files and/or the `cachedFiles` list
 const cachedFiles = [
     './index.html',
     './manifest.json',
@@ -15,13 +14,11 @@ const cachedFiles = [
     './src/co2_icon.jpg',
     './src/menu.png',
     './src/style.css',
-
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v1';
+const cacheKey = 'demo-sw-v40';
 
-// install, a good time to preload cache
 self.addEventListener('install', event => {
     console.log(`${cacheKey} is installed`)
     event.waitUntil((async () => {

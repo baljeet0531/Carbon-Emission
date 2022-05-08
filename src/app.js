@@ -44,45 +44,76 @@ const menuIcon = document.getElementById("menu_icon")
 const menuList = document.getElementById("menu_list")
 var showList = false;
 var listInterval;
+var menuListLeft;
 
 menuIcon.addEventListener("click", function () {
-    clearInterval(listInterval)
-    menuListLeft = parseInt(getComputedStyle(menuList).getPropertyValue("left"));
+
     if (showList) {
-        showList = !showList
-        listInterval = setInterval(function () {
-            menuListLeft -= 10;
-            menuList.style.left = menuListLeft + 'px';
-            if (getComputedStyle(menuList).getPropertyValue("left") == "-150px") {
-                clearInterval(listInterval);
-            }
-        }, 15)
+        closeMenu();
     }
     else {
-        showList = !showList
-        listInterval = setInterval(function () {
-            menuListLeft += 10;
-            menuList.style.left = menuListLeft + 'px';
-            if (getComputedStyle(menuList).getPropertyValue("left") == "0px") {
-                clearInterval(listInterval);
-            }
-        }, 15)
+        openMenu();
     }
 })
 
+function closeMenu() {
+    showList = false;
+    clearInterval(listInterval);
+    menuListLeft = parseInt(getComputedStyle(menuList).getPropertyValue("left"));
+    listInterval = setInterval(function () {
+        if (menuListLeft == -150) {
+            clearInterval(listInterval);
+        }
+        else {
+            menuListLeft -= 10;
+            menuList.style.left = menuListLeft + 'px';
+        }
+    }, 15);
+}
+
+function openMenu() {
+    showList = true;
+    clearInterval(listInterval);
+    menuListLeft = parseInt(getComputedStyle(menuList).getPropertyValue("left"));
+    listInterval = setInterval(function () {
+        if (menuListLeft == 0) {
+            clearInterval(listInterval);
+        }
+        else {
+            menuListLeft += 10;
+            menuList.style.left = menuListLeft + 'px';
+        }
+    }, 15);
+}
+
+const mainFrame = document.getElementsByClassName("main_frame");
+// //length - 1 for not adding event to logout page
+for (i = 0; i < mainFrame.length - 1; i++) {
+    mainFrame[i].addEventListener("click", closeMenu);
+}
+
 
 const menuClass = document.getElementsByClassName("menu");
-const frameClass = document.getElementsByClassName("main_frame")
-
-//length - 1 for not adding event to logout page
+// //length - 1 for not adding event to logout page
 for (i = 0; i < menuClass.length - 1; i++) {
-    menuClass[i].addEventListener("click", function (event) {
-        targetTab = event.path[1].id
-        targetFrame = targetTab.slice(0, -4) + "_div"
-        for (j = 0; j < frameClass.length; j++) {
-            frameClass[j].style.display = "none";
-        }
-        document.getElementById(targetFrame).style.display = "block";
-        menuIcon.click();
-    })
+    menuClass[i].addEventListener("click", closeMenu);
+}
+
+const frameClass = document.getElementsByClassName("main_frame")
+window.onhashchange = hashChange
+
+function hashChange() {
+
+    for (i = 0; i < frameClass.length; i++) {
+        frameClass[i].style.display = "none";
+    }
+    hashTag = window.location.hash;
+    hashTag = hashTag.slice(1) + "_div";
+    try {
+        document.getElementById(hashTag).style.display = "block";
+    }
+    catch {
+        document.getElementById("home_div").style.display = "block";
+    }
+    closeMenu();
 }
