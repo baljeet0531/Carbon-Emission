@@ -110,17 +110,17 @@
             </div>
             <div class="btn_grid">
                 <p class="back_btn" onclick="showPrev()">上一題</p>
-                <p class="next_btn" onclick="showNext('longDistanceVehicle')">完成</p>
+                <p class="next_btn" onclick="showHomepage('register')">完成</p>
             </div>
         </div>
-        <div id="importStep1-4" class="regPage fade">
+        <!-- <div id="importStep1-4" class="regPage fade">
             <a href="https://takeout.google.com/settings/takeout/custom/location_history"
                 target="_blank">"https://takeout.google.com/settings/takeout/custom/location_history"</a>
             <div class="btn_grid">
                 <p class="back_btn" onclick="showPrev()">上一題</p>
                 <p class="next_btn" onclick="showHomepage('register')">完成</p>
             </div>
-        </div>
+        </div> -->
     </div>
 
 
@@ -133,15 +133,16 @@
             <div id="vice_info">
                 <p id="daily_distance_title">今日移動距離</p>
                 <p id="weekly_co2e_title">週累積碳排</p>
-                <p id="daily_distance_value">76 km</p>
-                <p id="weekly_co2e_value">9.8 kg CO<sub>2</sub>e</p>
+                <p id="daily_distance_value">9.8 km</p>
+                <p id="weekly_co2e_value">76 kg CO<sub>2</sub>e</p>
             </div>
             <div id="main_info">
-                <p id="weekday">SUN</p>
+                <p id="weekday"></p>
                 <p id="daily_co2e_title">今日移動碳排</p>
                 <p id="daily_co2e_value">34</p>
                 <p id="daily_co2e_unit">kg CO<sub>2</sub>e</p>
             </div>
+            <p id="user_info"></p>
         </div>
         <div id="piechart_page" class="mySlides fade">
             <div id="chart_btn_div">
@@ -251,10 +252,16 @@
         </div>
     </div>
     <div id="reward_div" class="main_frame">
-        <div class="reward">
+        <!-- <div class="reward">
             <div class="border"></div>
             <p class="reward_title">健身房免費使用 乙次</p>
             <p class="reward_expire_date">使用期限: 2022/04/21</p>
+        </div> -->
+        <div class="reward">
+            <img src="./src/reward_gym.png">
+        </div>
+        <div class="reward">
+            <img src="./src/reward_dorm.png">
         </div>
     </div>
     <div id="rank_div" class="main_frame">
@@ -279,61 +286,61 @@
                     <p>總碳排</p>
                 </th>
             </tr>
-            <tr>
+            <tr id="rank_1st">
                 <td><img src="./src/1st.png"></td>
                 <td>
-                    <p>程小清</p>
+                    <p></p>
                 </td>
                 <td>
-                    <p>0.38kg/CO2e</p>
+                    <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_2nd">
                 <td><img src="./src/2nd.png"></td>
                 <td>
-                    <p>朱晴晴</p>
+                    <p></p>
                 </td>
                 <td>
-                    <p>0.4kg/CO2e</p>
+                    <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_3rd">
                 <td><img src="./src/3rd.png"></td>
                 <td>
-                    <p>王大華</p>
+                    <p></p>
                 </td>
                 <td>
-                    <p>0.55kg/CO2e</p>
+                    <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_4th">
                 <td><img src="./src/4th.png"></td>
                 <td>
-                    <p>陳小明</p>
+                    <p></p>
                 </td>
                 <td>
-                    <p>0.89kg/CO2e</p>
+                    <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_5th">
                 <td><img src="./src/5th.png"></td>
                 <td>
-                    <p>黃小新</p>
+                    <p></p>
                 </td>
                 <td>
-                    <p>1.06kg/CO2e</p>
+                    <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_6th">
                 <td><img src="./src/6th.png"></td>
                 <td>
-                    <p>許小澄</p>
+                    <p></p>
                 </td>
                 <td>
-                    <p>1.23kg/CO2e</p>
+                    <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_7th">
                 <td><img src="./src/7th.png"></td>
                 <td>
                     <p></p>
@@ -342,7 +349,7 @@
                     <p></p>
                 </td>
             </tr>
-            <tr>
+            <tr id="rank_8th">
                 <td><img src="./src/8th.png"></td>
                 <td>
                     <p></p>
@@ -353,12 +360,47 @@
             </tr>
         </table>
     </div>
+    <div id="update_div" class="main_frame">
+        <p id="update_describe">若想要更新定位紀錄
+            點選下方網址
+            操作步驟同一開始上傳定位紀錄
+            再點選下方"匯入檔案"
+            並"提交檔案"即可
+        </p>
+        <a id="update_link" href="https://takeout.google.com/settings/takeout/custom/location_history"
+            target="_blank">https://takeout.google.com/settings/takeout/custom/location_history</a>
+        <form onsubmit="return send()" method="POST">
+            <label id="choose_file_btn">
+                <input id="chosen-file" type="file" accept=".zip,.rar,.7zip"
+                    onchange="document.getElementById('choose_file_value').innerHTML = value" style="display: none;" />
+                匯入檔案
+            </label>
+            <p id="choose_file_value"></p>
+            <label id="submit_file_btn">
+                <input type="submit" value="Submit" style="display: none;" />
+                提交檔案
+            </label>
+        </form>
+    </div>
     <div id="knowledge_div" class="main_frame">
         <div class="knowledge">
             <div class="border">
             </div>
             <p class="knowledge_title">循環週報</p>
             <p class="knowledge_content"></p>
+
+        </div>
+        <div id="knowledge_grid">
+            <img src="./src/weekly_report_cover.webp">
+            <img src="./src/weekly_report_1.webp">
+            <img src="./src/weekly_report_2.webp">
+            <img src="./src/weekly_report_3.webp">
+        </div>
+        <div class="knowledge">
+            <p class="knowledge_title">欲了解更多內容可點選下列網址<br>
+                <a href="https://www.facebook.com/CExTainan/" target="_blank">https://www.facebook.com/CExTainan/
+                </a>
+            </p>
         </div>
     </div>
     <div id="QA_div" class="main_frame">
@@ -378,6 +420,77 @@
                 </p>
             </div>
         </div>
+        <div class="QA">
+            <div class="question">
+                <div class="border"></div>
+                <p class="question_number">Q2:</p>
+                <p class="question_content">如何確定使用者選擇的交通工具和真實使用的相符？</p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">A2:</p>
+                <p class="answer_content">會根據使用者移動的速度來判斷該使用的交通工具為何。
+                </p>
+            </div>
+        </div>
+        <div class="QA">
+            <div class="question">
+                <div class="border"></div>
+                <p class="question_number">Q3:</p>
+                <p class="question_content">每個人距離學校不同，是否會影響判斷標準？</p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">A3:</p>
+                <p class="answer_content">我們會依使用者平常的使用習慣，來分不同的族群，藉此保障公平性。
+                </p>
+            </div>
+        </div>
+        <div class="QA">
+            <div class="question">
+                <div class="border"></div>
+                <p class="question_number">Q4:</p>
+                <p class="question_content">如何得到兌換卷？</p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">A4:</p>
+                <p class="answer_content">完成本週任務便可獲得兌換卷獎勵，此外藉由使用者碳量的百分比做比較，一週後會統計來排名，排名高者即可得到額外的學校服務的兌換卷喔！</p>
+            </div>
+        </div>
+        <div class="QA">
+            <div class="question">
+                <div class="border"></div>
+                <p class="question_number">Q5:</p>
+                <p class="question_content">如何更新定位紀錄？</p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">STEP1：</p>
+                <p class="answer_content">點選網址後
+                </p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">STEP2：</p>
+                <p class="answer_content">在"選取要納入的資料"僅勾選"定位紀錄"並點擊"下一步“
+                </p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">STEP3：</p>
+                <p class="answer_content">在"選擇檔案類型、匯出的頻率和目標"
+                    1)"傳送方式"選擇以"電子郵件傳送下載連結"
+                    2)"檔案類型"選擇".zip"
+                    3)"檔案大小"選擇"2GB"
+                    4)點擊"建立匯出作業"
+                </p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">STEP4：</p>
+                <p class="answer_content">等待畫面挑轉或收到電子郵件後(可能會花幾分鐘作業時間)，將檔案下載到手機
+                </p>
+            </div>
+            <div class="answer">
+                <p class="answer_number">STEP5：</p>
+                <p class="answer_content">再將檔案上傳至更新定位紀錄的頁面
+                </p>
+            </div>
+        </div>
     </div>
 
     <div id="menu_list">
@@ -393,6 +506,9 @@
         <div id="rank_tab" class="menu">
             <a href="#rank">排行榜</a>
         </div>
+        <div id="update_tab" class="menu">
+            <a href="#update">更新紀錄</a>
+        </div>
         <div id="knowledge_tab" class="menu">
             <a href="#knowledge">知識專區</a>
         </div>
@@ -403,12 +519,6 @@
             <a>登出</a>
         </div>
     </div>
-
-
-    <!-- <form onsubmit="return send()" method="POST">
-            <p><input id="chosen-file" type="file" value="choose file" accept=".zip,.rar,.7zip" /></p>
-            <p><input type="submit" value="Submit" /></p>
-        </form> -->
 
 
     <script src="./src/app.js"></script>
@@ -442,10 +552,10 @@
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
 
-        var data, chartOptions;
+        var chartData, chartOptions;
 
         function drawChart() {
-            data = google.visualization.arrayToDataTable([
+            chartData = google.visualization.arrayToDataTable([
                 ['Type', 'Distance'],
                 ['汽車', 30],
                 ['走路', 25],
@@ -482,18 +592,23 @@
         function drawDonut() {
             if (chartFirstClick) {
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                chart.draw(data, chartOptions);
+                chart.draw(chartData, chartOptions);
                 chartFirstClick = false;
             }
         }
     </script>
     <script>
 
+        const weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
         var tableFirstClick = true;
         var todayTD;
+        const today = new Date()
+
+        document.getElementById("weekday").innerHTML = weekday[today.getDay()]
+
         function drawTable() {
-            const today = new Date()
             let todayDate = today.getDate()
+
 
             const firstDate = new Date()
             firstDate.setDate(1)
@@ -505,6 +620,7 @@
             }
 
             if (tableFirstClick) {
+                document.getElementById("cont_number").innerHTML = todayDate - 1
                 let i = 0;
                 dates_img = document.querySelectorAll("#checkin_table td img")
                 for (i = firstWeekday; i < todayDate + firstWeekday - 1; i++) {
@@ -512,7 +628,11 @@
                 }
                 todayTD = document.querySelectorAll("#checkin_table td")[i]
                 todayTD.style.backgroundColor = "#b8e6e3";
-
+                todayTD.addEventListener("click", function () {
+                    dates_img[todayDate + firstWeekday - 1].style.display = "block";
+                    todayTD.style.backgroundColor = "transparent"
+                    document.getElementById("cont_number").innerHTML = todayDate
+                })
                 tableFirstClick = false;
             }
 
@@ -520,55 +640,122 @@
     </script>
     <script>
         function send() {
+
+
             let chosen_file = document.getElementById("chosen-file").files[0];
-            //console.log(chosen_file)
             let formData = new FormData();
 
             formData.append("file", chosen_file);
-            fetch('/upload', { method: "POST", body: formData })
-                .then((response) => {
-                    console.log(response.json());
-                }).catch((error) => {
-                    console.log(error);
-                });
-            return false
-        }
-    </script>
+
+            document.getElementById("choose_file_value").innerHTML = "等待結果中<br>這可能會花一點時間"
+
+            fetch('/upload', {
+                method: "POST", body: formData
+            }).then((response) => {
+                return response.json()
+            }).then(function (data) {
+                var co2eWeek = 0.0;
+                var distWeek = 0.0;
+                var sendDay = new Date()
+                var updateDate = sendDay.toISOString().split("T")[0];
+                localStorage.setItem("UpdateDate", updateDate);
 
 
-    <!-- <script>
-        var width = 320;
-        var height = 0;
 
-        var streaming = false;
+                // 算%數
+                //chartData = google.visualization.arrayToDataTable([
+                //     ['Type', 'Distance'],
+                //     ['汽車', (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"] ? data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"] : 0)],
+                //     ['走路', 25],
+                //     ['腳踏車', 35],
+                //     ['機車', 10],
+                // ]);
 
-        var video = document.getElementById('scanner');
 
-        navigator.mediaDevices.getUserMedia({
-            video: { facingMode: { exact: "environment" } },
-            audio: false
-        })
-            // on success, stream it in video tag
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(function (err) {
-                console.log("An error occurred: " + err);
+                console.log(data)
+                for (i = 0; i < 7; i++) {
+                    co2eDay = 0
+                    distDay = 0
+                    date = getDateOfWeek(sendDay, i)
+                    try {
+                        console.log(data[date])
+                        if (!data[date]) {
+                            continue
+                        }
+                        if (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]) {
+                            dist = data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]
+                            co2e = dist * 0.11
+                            co2eDay += co2e;
+                            distDay += dist;
+                        }
+                        if (data[date]["Summary"]["MOTORCYCLING"]) {
+                            dist = data[date]["Summary"]["MOTORCYCLING"]["Distance"]
+                            co2e = dist * 0.1
+                            co2eDay += co2e;
+                            distDay += dist;
+                        }
+                        if (data[date]["Summary"]["IN_BUS"]) {
+                            dist = data[date]["Summary"]["IN_BUS"]["Distance"]
+                            co2e = dist * 0.04
+                            co2eDay += co2e;
+                            distDay += dist;
+                        }
+                        if (data[date]["Summary"]["IN_SUBWAY"]) {
+                            dist = data[date]["Summary"]["IN_SUBWAY"]["Distance"]
+                            co2e = dist * 0.04
+                            co2eDay += co2e;
+                            distDay += dist;
+                        }
+                        if (data[date]["Summary"]["IN_TRAIN"]) {
+                            dist = data[date]["Summary"]["IN_TRAIN"]["Distance"]
+                            co2e = dist * 0.06
+                            co2eDay += co2e;
+                            distDay += dist;
+                        }
+                        if (data[date]["Summary"]["CYCLING"]) {
+                            dist = data[date]["Summary"]["CYCLING"]["Distance"]
+                            distDay += dist;
+                        }
+                        if (data[date]["Summary"]["WALKING"]) {
+                            dist = data[date]["Summary"]["WALKING"]["Distance"]
+                            distDay += dist;
+                        }
+
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+
+
+                    co2eWeek += co2eDay
+                    distWeek += distDay
+
+                    todayDay = sendDay.getDay() - 1
+                    if (todayDay == -1) {
+                        todayDay = 6;
+                    }
+                    if (i == todayDay) {
+                        localStorage.setItem("TodayCO2E", co2eDay.toFixed(2));
+                        localStorage.setItem("TodayDist", distDay.toFixed(2));
+                    }
+                }
+                localStorage.setItem("WeekCO2E", co2eWeek.toFixed(2));
+                localStorage.setItem("WeekDist", distWeek.toFixed(2));
+
+                showInfo();
+                document.getElementById("choose_file_value").innerHTML = "更新完成"
+            }).catch((error) => {
+                console.log(error);
             });
 
-        video.addEventListener('canplay', function (ev) {
-            if (!streaming) {
-                height = video.videoHeight / (video.videoWidth / width);
 
-                if (isNaN(height)) {
-                    height = width / (4 / 3);
-                }
+            return false
+        }
 
-                video.setAttribute('width', width);
-                video.setAttribute('height', height);
-                streaming = true;
-            }
-        }, false);
-    </script> -->
+
+        function getDateOfWeek(date, num) {
+            return (new Date(date.setDate(date.getDate() - date.getDay() + (date.getDay() == 0 ? -6 : 1) + 1 + num)).toISOString().split("T")[0]);
+        }
+
+    </script>
 </body>

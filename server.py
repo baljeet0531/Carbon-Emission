@@ -63,7 +63,7 @@ def upload():
         file_like_object = file.stream._file
         zipfile_ob = zipfile.ZipFile(file_like_object)
         file_names = zipfile_ob.namelist()
-        targetfile = 'Takeout/定位記錄/Semantic Location History/2022/2022_APRIL.json'
+        targetfile = 'Takeout/定位記錄/Semantic Location History/2022/2022_MAY.json'
 
         with zipfile_ob.open(targetfile, mode='r') as f:
             zipinfo = json.load(f)
@@ -71,6 +71,10 @@ def upload():
                 for key, value in dict.items():
                     if key == "activitySegment":
                         if all(k in value for k in ("distance", "activityType", "duration")):
+                            vehicleType = value["activityType"]
+                            if vehicleType == "UNKNOWN_ACTIVITY_TYPE":
+                                continue
+
                             startTime = datetime.datetime.strptime(
                                 value["duration"]["startTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
                             endTime = datetime.datetime.strptime(
@@ -80,7 +84,6 @@ def upload():
                             date = value["duration"]["startTimestamp"].split("T")[
                                 0]
                             distanceKM = round((value["distance"] / 1000), 3)
-                            vehicleType = value["activityType"]
 
                             dailyRecordDist = {
                                 "Type": vehicleType,

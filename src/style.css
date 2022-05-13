@@ -1,8 +1,8 @@
+html,
 body {
     margin: 0;
     width: 100vw;
     height: 100vh;
-
     font-family: 'DM Sans';
 }
 
@@ -34,13 +34,13 @@ p {
 
 #menu_list {
     position: absolute;
-    height: 420px;
+    height: 490px;
     width: 150px;
     top: 67px;
     left: -150px;
 
     display: grid;
-    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
     background-color: #87d8d2;
     border-bottom-right-radius: 10px;
 
@@ -68,10 +68,12 @@ p {
 .main_frame {
     display: none;
     position: absolute;
-    height: calc(100vh - 67px);
+    height: calc(100vh - 72px);
     width: 100vw;
     top: 67px;
     left: 0;
+    padding-bottom: 5px;
+    overflow: auto;
 }
 
 
@@ -152,6 +154,13 @@ p {
 
 #daily_co2e_unit {
     font-size: 30px;
+}
+
+#user_info {
+    display: block;
+    position: absolute;
+    top: 492px;
+    width: 100%;
 }
 
 #chart_btn_div {
@@ -345,7 +354,24 @@ table {
     padding-bottom: 13px;
 }
 
+
 .reward {
+
+    position: relative;
+    min-height: 133px;
+    height: auto;
+    width: 330px;
+    left: calc((100vw - 330px)/2);
+    margin-top: 41px;
+
+    display: block;
+}
+
+.reward img {
+    width: 100%;
+}
+
+/* .reward {
 
     position: relative;
     min-height: 133px;
@@ -389,7 +415,7 @@ table {
     margin-top: 56px;
     margin-left: 5%;
     padding-bottom: 11px;
-}
+} */
 
 #rank_btn_div {
     position: absolute;
@@ -457,6 +483,73 @@ table {
     vertical-align: middle;
 }
 
+#update_describe {
+    position: relative;
+    display: block;
+    margin-top: 36px;
+    width: 80vw;
+    left: 10vw;
+    word-wrap: break-word;
+    white-space: pre-line;
+
+    font-size: 18px;
+}
+
+#update_link {
+    position: relative;
+    display: block;
+    margin-top: 72px;
+    width: 80vw;
+    left: 10vw;
+    word-wrap: break-word;
+    white-space: pre-line;
+    text-align: center;
+
+    font-size: 18px;
+}
+
+#choose_file_btn,
+#submit_file_btn {
+    display: block;
+    position: relative;
+    width: 110px;
+    height: 46px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 46px;
+    font-weight: 700;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#choose_file_btn {
+    left: 41px;
+    color: black;
+    background-color: #e8e6e6;
+}
+
+#choose_file_value {
+    display: table-cell;
+    position: relative;
+    height: 25vw;
+    width: 316px;
+    left: calc((100vw - 316px)/2);
+    font-size: 16px;
+    vertical-align: middle;
+    overflow-y: auto;
+    border: 5px dotted #d6d5d5;
+    border-radius: 30px;
+}
+
+#submit_file_btn {
+    left: calc(100vw - 151px);
+    color: white;
+    background-color: #6bcbca;
+}
+
+
+
 .knowledge {
 
     position: relative;
@@ -464,7 +557,7 @@ table {
     height: auto;
     width: 330px;
     left: calc((100vw - 330px)/2);
-    margin-top: 60px;
+    margin-top: 18px;
 
     display: block;
 
@@ -472,6 +565,10 @@ table {
     border-radius: 10px;
 
     word-wrap: break-word;
+}
+
+.knowledge:first-child {
+    margin-top: 60px;
 }
 
 .knowledge .border {
@@ -486,7 +583,7 @@ table {
 
 .knowledge_title {
     width: 90%;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     text-align: center;
     padding-top: 14px;
@@ -502,6 +599,33 @@ table {
     margin-left: 10%;
     padding-bottom: 13px;
 }
+
+#knowledge_grid {
+    position: relative;
+    height: 330px;
+    width: 330px;
+    left: calc((100vw - 330px)/2);
+    margin-top: 8px;
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    justify-content: space-between;
+    align-content: space-between;
+    gap: 5px 5px;
+}
+
+#knowledge_grid img {
+    width: 100%;
+}
+
+#knowledge_grid img:nth-child(1) {
+    grid-area: 1 / 1 / 4 / 3;
+}
+
+/* #knowledge_grid img:nth-child(2) {
+    grid-area: 1 / 1 / 2 / 3;
+} */
 
 .question {
     position: relative;

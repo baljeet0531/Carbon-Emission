@@ -1,15 +1,17 @@
+var studentID, studentName;
 
 function loginConfirm() {
 
-
-    // Check if ID in DB
-    cameraStop()
-    //if no
-    //showRegisterPage()
-    document.getElementById("login_page").style.display = "none"
-    document.getElementById("register_page").style.display = "block"
+    if (studentID && studentName) {
+        // Check if ID in DB
+        cameraStop()
+        //if no
+        //showRegisterPage()
+        document.getElementById("login_page").style.display = "none"
+        document.getElementById("register_page").style.display = "block"
+        document.getElementById("IDandName").innerHTML = "歡迎 " + studentID + studentName + " 的加入！"
+    }
 }
-
 var registerPage;
 function showPrev() {
 
@@ -113,11 +115,13 @@ function getCamera() {
 }
 
 window.onload = function () {
-    if (localStorage.getItem("studentID")) {
-        console.log(localStorage.getItem("studentID"))
+    if (localStorage.getItem("studentID") && localStorage.getItem("studentName")) {
+        studentID = localStorage.getItem("studentID");
+        studentName = localStorage.getItem("studentName");
         showHomepage()
     }
     else {
+        document.getElementById("login_page").style.display = "block"
         getCamera()
     }
 }
@@ -261,7 +265,7 @@ function takePhoto() {
 //         })
 // }
 
-var studentID, studentName;
+
 var result = document.getElementById("result");
 
 function scanImage() {
@@ -275,11 +279,10 @@ function scanImage() {
     }).then((response) => {
         console.log(response)
         return response.json()
-    }
-    ).then(function (data) {
+    }).then(function (data) {
         console.log(data);
         if (data["ID"]) {
-            result.innerHTML = "ID: " + data["ID"] + "<br><br>Name: " + data["Name"];
+            result.innerHTML = "ID：" + data["ID"] + "<br><br>姓名：" + data["Name"];
             studentID = data["ID"];
             studentName = data["Name"];
         }
@@ -293,11 +296,31 @@ function scanImage() {
 };
 
 function showHomepage(state) {
+    if (!localStorage.getItem("UpdateDate")) {
+        localStorage.setItem("UpdateDate", "-")
+        localStorage.setItem("WeekCO2E", "-")
+        localStorage.setItem("WeekDist", "-")
+    }
     if (state == "register") {
         localStorage.setItem("studentID", studentID);
+        localStorage.setItem("studentName", studentName);
     }
+    if (localStorage.getItem("UpdateDate") != (new Date().toISOString().split("T")[0])) {
+        localStorage.setItem("TodayCO2E", "-")
+        localStorage.setItem("TodayDist", "-")
+    }
+    showInfo()
+    document.getElementById("user_info").innerHTML = "ID：" + studentID + "<br>姓名：" + studentName
+    document.querySelector("#rank_1st td:nth-child(2)").innerHTML = "<p>" + studentName + "</p>";
     document.getElementById("navigation_bar").style.display = "block";
     document.getElementById("home_div").style.display = "block";
     document.getElementById("register_page").style.display = "none";
     document.getElementById("login_page").style.display = "none";
+}
+
+function showInfo() {
+    document.getElementById("daily_distance_value").innerHTML = localStorage.getItem("TodayDist") + " km";
+    document.getElementById("daily_co2e_value").innerHTML = localStorage.getItem("TodayCO2E");
+    document.getElementById("weekly_co2e_value").innerHTML = localStorage.getItem("WeekCO2E") + " kg CO<sub>2</sub>e";
+    document.querySelector("#rank_1st td:nth-child(3)").innerHTML = "<p>" + localStorage.getItem("WeekCO2E") + " kg/CO<sub>2</sub>e</p>";
 }

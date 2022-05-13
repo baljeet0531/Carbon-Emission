@@ -120,5 +120,6 @@ function hashChange() {
 
 function logOut() {
     localStorage.removeItem("studentID");
+    localStorage.removeItem("studentName");
     location.reload();
 }

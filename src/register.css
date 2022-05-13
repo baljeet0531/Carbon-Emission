@@ -4,17 +4,13 @@
     }
 }
 
-body {
-    margin: 0;
-}
-
 p {
     margin: 0;
     padding: 0;
 }
 
 #login_page {
-    display: block;
+    display: none;
     width: 100vw;
     height: 100vh;
 }
