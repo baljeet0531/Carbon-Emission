@@ -13,7 +13,8 @@ p {
 }
 
 #navigation_bar {
-    display: block;
+    /* display: block; */
+    display: none;
     position: absolute;
     height: 67px;
     width: 100vw;
@@ -76,7 +77,8 @@ p {
 
 
 #home_div {
-    display: block;
+    /* display: block; */
+    display: none;
 }
 
 #vice_info {

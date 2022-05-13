@@ -11,6 +11,7 @@
     <meta property="og:description" content="Carbon">
 
     <link href="./src/style.css" rel="stylesheet" type="text/css">
+    <link href="./src/register.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
     <link rel="icon" type="image/jpeg" href="./src/co2_icon.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="./src/co2_icon.jpg" />
@@ -21,10 +22,111 @@
 <meta>
 
 <body>
+    <div id="login_page">
+        <p id="describe">將學生證拍照後再按下掃瞄照片</p>
+        <div id="camera">
+            <video id="scanner" width="1080px" height="720px">Video stream not avalible.</video>
+        </div>
+        <input type="range" hidden />
+        <canvas id="snap"></canvas>
+        <button id="to_canvas_btn" onclick="takePhoto()">拍攝照片</button>
+        <button id="scan_btn" onclick="scanImage()">掃瞄照片</button>
+        <p id="result"></p>
+        <div class="btn_grid">
+            <p class="next_btn" onclick="loginConfirm()">確認</p>
+        </div>
+    </div>
+
+    <div id="register_page">
+        <div id="agreement" class="regPage fade">
+            <div id="welcome_text">
+                <p id="IDandName">歡迎 E14056300方柏翔 的加入！</p>
+            </div>
+            <div id="agreement_content">
+                <p>I. 本人已詳閱並充分了解CARBON－－隱私權政策所述內容，並同意及授權CARBON－－依此為本人個人資料之蒐集、處理、利用。</p>
+                <p>II.
+                    本人充分暸解CARBON－－於提供服務之過程中，將不可避免地接受不具備個人識別性之相關資訊，包括但不限於CARBON－－使用里程、地理位置、即時定位等（下稱「使用資訊」），本人同意及授權CARBON－－蒐集使用上述不具備個人識別性之資訊，或是將其與具可識別性之
+                </p>
+            </div>
+            <div id="checkBox_div">
+                <input type="checkbox" id="checkBox" onclick="showNext('')">
+                <p>我已詳閱上述文字並同意</p>
+            </div>
+        </div>
+        <div id="questionnaireStart" class="regPage fade">
+            <p id="beforeStart">開始使用前，<br>我們先來做個簡單的調查！</p>
+            <div class="btn_grid">
+                <p class="next_btn" onclick="showNext('')">下一頁</p>
+            </div>
+        </div>
+        <div id="questionnaireSchoolVehicle" class="regPage fade">
+            <p class="questionnaireTitle">我平常上學的交通工具是</p>
+            <div class="option_grid">
+                <div class="option schoolVehicle" onclick="select(this)">
+                    <img src="./src/walk.png">
+                </div>
+                <div class="option schoolVehicle" onclick="select(this)">
+                    <img src="./src/bicycle.png">
+                </div>
+                <div class="option schoolVehicle" onclick="select(this)">
+                    <img src="./src/car.png">
+                </div>
+                <div class="option schoolVehicle" onclick="select(this)">
+                    <img src="./src/motorcycle.png">
+                </div>
+            </div>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一題</p>
+                <p class="next_btn" onclick="showNext('SchoolVehicle')">下一題</p>
+            </div>
+        </div>
+        <div id="questionnaireLongDistanceFrequecy" class="regPage fade">
+            <p class="questionnaireTitle">我長途移動(跨縣市)的頻率是</p>
+            <div id="freq_input_div">
+                <p>每個月</p>
+                <input type="number" min="0" max="100" placeholder="0~100" oninput="validity.valid||(value='');">
+                <p>次</p>
+            </div>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一題</p>
+                <p class="next_btn" onclick="showNext('frequency')">下一題</p>
+            </div>
+        </div>
+        <div id="questionnaireLongDistanceVehicle" class="regPage fade">
+            <p class="questionnaireTitle">我長途移動(跨縣市)的交通工具是</p>
+            <div class="option_grid">
+                <div class="option longDistanceVehicle" onclick="select(this)">
+                    <img src="./src/walk.png">
+                </div>
+                <div class="option longDistanceVehicle" onclick="select(this)">
+                    <img src=" ./src/bicycle.png">
+                </div>
+                <div class="option longDistanceVehicle" onclick="select(this)">
+                    <img src=" ./src/car.png">
+                </div>
+                <div class="option longDistanceVehicle" onclick="select(this)">
+                    <img src=" ./src/motorcycle.png">
+                </div>
+            </div>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一題</p>
+                <p class="next_btn" onclick="showNext('longDistanceVehicle')">完成</p>
+            </div>
+        </div>
+        <div id="importStep1-4" class="regPage fade">
+            <a href="https://takeout.google.com/settings/takeout/custom/location_history"
+                target="_blank">"https://takeout.google.com/settings/takeout/custom/location_history"</a>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一題</p>
+                <p class="next_btn" onclick="showHomepage()">完成</p>
+            </div>
+        </div>
+    </div>
+
+
     <div id="navigation_bar">
         <img id="menu_icon" src="./src/menu.png">
     </div>
-
 
     <div id="home_div" class="main_frame">
         <div id="daily_info_page" class="mySlides fade">
@@ -278,8 +380,6 @@
         </div>
     </div>
 
-
-
     <div id="menu_list">
         <div id="home_tab" class="menu">
             <a href="#home">首頁</a>
@@ -304,6 +404,8 @@
             <a>登出</a>
         </div>
     </div>
+
+
     <!-- <form onsubmit="return send()" method="POST">
             <p><input id="chosen-file" type="file" value="choose file" accept=".zip,.rar,.7zip" /></p>
             <p><input type="submit" value="Submit" /></p>
@@ -311,6 +413,7 @@
 
 
     <script src="./src/app.js"></script>
+    <script src="./src/register.js"></script>
     <script>
         let slideIndex = 1;
         showSlides(slideIndex);
@@ -340,7 +443,7 @@
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
 
-        var data, options;
+        var data, chartOptions;
 
         function drawChart() {
             data = google.visualization.arrayToDataTable([
@@ -351,7 +454,7 @@
                 ['機車', 10],
             ]);
 
-            options = {
+            chartOptions = {
                 pieHole: 0.4,
                 legend: {
                     position: 'labeled',
@@ -380,7 +483,7 @@
         function drawDonut() {
             if (chartFirstClick) {
                 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                chart.draw(data, options);
+                chart.draw(data, chartOptions);
                 chartFirstClick = false;
             }
         }
@@ -432,4 +535,41 @@
             return false
         }
     </script>
+
+
+    <!-- <script>
+        var width = 320;
+        var height = 0;
+
+        var streaming = false;
+
+        var video = document.getElementById('scanner');
+
+        navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { exact: "environment" } },
+            audio: false
+        })
+            // on success, stream it in video tag
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err) {
+                console.log("An error occurred: " + err);
+            });
+
+        video.addEventListener('canplay', function (ev) {
+            if (!streaming) {
+                height = video.videoHeight / (video.videoWidth / width);
+
+                if (isNaN(height)) {
+                    height = width / (4 / 3);
+                }
+
+                video.setAttribute('width', width);
+                video.setAttribute('height', height);
+                streaming = true;
+            }
+        }, false);
+    </script> -->
 </body>
