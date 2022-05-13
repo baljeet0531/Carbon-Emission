@@ -117,3 +117,8 @@ function hashChange() {
     }
     closeMenu();
 }
+
+function logOut() {
+    localStorage.removeItem("studentID");
+    location.reload();
+}

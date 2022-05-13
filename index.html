@@ -96,16 +96,16 @@
             <p class="questionnaireTitle">我長途移動(跨縣市)的交通工具是</p>
             <div class="option_grid">
                 <div class="option longDistanceVehicle" onclick="select(this)">
-                    <img src="./src/walk.png">
+                    <img src="./src/airplane.png">
                 </div>
                 <div class="option longDistanceVehicle" onclick="select(this)">
-                    <img src=" ./src/bicycle.png">
+                    <img src=" ./src/bus1.png">
                 </div>
                 <div class="option longDistanceVehicle" onclick="select(this)">
-                    <img src=" ./src/car.png">
+                    <img src=" ./src/train.png">
                 </div>
                 <div class="option longDistanceVehicle" onclick="select(this)">
-                    <img src=" ./src/motorcycle.png">
+                    <img src=" ./src/THSR.png">
                 </div>
             </div>
             <div class="btn_grid">
@@ -118,7 +118,7 @@
                 target="_blank">"https://takeout.google.com/settings/takeout/custom/location_history"</a>
             <div class="btn_grid">
                 <p class="back_btn" onclick="showPrev()">上一題</p>
-                <p class="next_btn" onclick="showHomepage()">完成</p>
+                <p class="next_btn" onclick="showHomepage('register')">完成</p>
             </div>
         </div>
     </div>
@@ -399,8 +399,7 @@
         <div id="QA_tab" class="menu">
             <a href="#QA">Q&A</a>
         </div>
-        <div id="logout_tab" class="menu">
-            <!-- <a href="#logout">登出</a> -->
+        <div id="logout_tab" class="menu" onclick="logOut()">
             <a>登出</a>
         </div>
     </div>

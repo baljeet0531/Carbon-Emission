@@ -1,11 +1,13 @@
+
 function loginConfirm() {
+
+
     // Check if ID in DB
     cameraStop()
     //if no
     //showRegisterPage()
     document.getElementById("login_page").style.display = "none"
     document.getElementById("register_page").style.display = "block"
-
 }
 
 var registerPage;
@@ -109,7 +111,16 @@ function getCamera() {
             console.log("An error occurred: " + err);
         });
 }
-window.onload = getCamera()
+
+window.onload = function () {
+    if (localStorage.getItem("studentID")) {
+        console.log(localStorage.getItem("studentID"))
+        showHomepage()
+    }
+    else {
+        getCamera()
+    }
+}
 
 
 function cameraStop() {
@@ -250,7 +261,7 @@ function takePhoto() {
 //         })
 // }
 
-var ID, name;
+var studentID, studentName;
 var result = document.getElementById("result");
 
 function scanImage() {
@@ -269,6 +280,8 @@ function scanImage() {
         console.log(data);
         if (data["ID"]) {
             result.innerHTML = "ID: " + data["ID"] + "<br><br>Name: " + data["Name"];
+            studentID = data["ID"];
+            studentName = data["Name"];
         }
         else {
             result.innerHTML = "Error: " + data["message"];
@@ -279,8 +292,12 @@ function scanImage() {
     console.timeEnd()
 };
 
-function showHomepage() {
+function showHomepage(state) {
+    if (state == "register") {
+        localStorage.setItem("studentID", studentID);
+    }
     document.getElementById("navigation_bar").style.display = "block";
     document.getElementById("home_div").style.display = "block";
-    document.getElementById("register_page").style.display = "none"
+    document.getElementById("register_page").style.display = "none";
+    document.getElementById("login_page").style.display = "none";
 }
