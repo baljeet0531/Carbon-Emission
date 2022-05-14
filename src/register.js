@@ -300,6 +300,7 @@ function showHomepage(state) {
         localStorage.setItem("UpdateDate", "-")
         localStorage.setItem("WeekCO2E", "-")
         localStorage.setItem("WeekDist", "-")
+        localStorage.setItem("WeekRecord", "-")
     }
     if (state == "register") {
         localStorage.setItem("studentID", studentID);
@@ -308,6 +309,7 @@ function showHomepage(state) {
     if (localStorage.getItem("UpdateDate") != (new Date().toISOString().split("T")[0])) {
         localStorage.setItem("TodayCO2E", "-")
         localStorage.setItem("TodayDist", "-")
+        localStorage.setItem("TodayRecord", "-")
     }
     showInfo()
     document.getElementById("user_info").innerHTML = "ID：" + studentID + "<br>姓名：" + studentName

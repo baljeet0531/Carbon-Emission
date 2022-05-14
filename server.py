@@ -63,60 +63,124 @@ def upload():
         file_like_object = file.stream._file
         zipfile_ob = zipfile.ZipFile(file_like_object)
         file_names = zipfile_ob.namelist()
-        targetfile = 'Takeout/定位記錄/Semantic Location History/2022/2022_MAY.json'
+        targetfile = 'Takeout/Location History/Semantic Location History/2022/2022_MAY.json'
 
-        with zipfile_ob.open(targetfile, mode='r') as f:
-            zipinfo = json.load(f)
-            for dict in zipinfo["timelineObjects"]:
-                for key, value in dict.items():
-                    if key == "activitySegment":
-                        if all(k in value for k in ("distance", "activityType", "duration")):
-                            vehicleType = value["activityType"]
-                            if vehicleType == "UNKNOWN_ACTIVITY_TYPE":
-                                continue
+        try:
+            with zipfile_ob.open(targetfile, mode='r') as f:
+                zipinfo = json.load(f)
+                for dict in zipinfo["timelineObjects"]:
+                    for key, value in dict.items():
+                        if key == "activitySegment":
+                            if all(k in value for k in ("distance", "activityType", "duration")):
+                                vehicleType = value["activityType"]
+                                if vehicleType == "UNKNOWN_ACTIVITY_TYPE":
+                                    continue
 
-                            startTime = datetime.datetime.strptime(
-                                value["duration"]["startTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
-                            endTime = datetime.datetime.strptime(
-                                value["duration"]["endTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
-                            duration = int((
-                                endTime - startTime).total_seconds() / 60)
-                            date = value["duration"]["startTimestamp"].split("T")[
-                                0]
-                            distanceKM = round((value["distance"] / 1000), 3)
+                                startTime = datetime.datetime.strptime(
+                                    value["duration"]["startTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
+                                endTime = datetime.datetime.strptime(
+                                    value["duration"]["endTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
+                                duration = int((
+                                    endTime - startTime).total_seconds() / 60)
+                                date = value["duration"]["startTimestamp"].split("T")[
+                                    0]
+                                distanceKM = round(
+                                    (value["distance"] / 1000), 3)
 
-                            dailyRecordDist = {
-                                "Type": vehicleType,
-                                "Duration": duration,
-                                "Distance": distanceKM
-                            }
+                                dailyRecordDist = {
+                                    "Type": vehicleType,
+                                    "Duration": duration,
+                                    "Distance": distanceKM
+                                }
 
-                            if date in recordDist:
-                                if vehicleType in recordDist[date]["Summary"]:
-                                    recordDist[date]["Summary"][vehicleType]["Duration"] += duration
-                                    recordDist[date]["Summary"][vehicleType]["Distance"] += distanceKM
-                                else:
-                                    recordDist[date]["Summary"][vehicleType] = {
-                                        "Duration": duration,
-                                        "Distance": distanceKM
-                                    }
-                                recordDist[date]["Record List"].append(
-                                    dailyRecordDist)
-                            else:
-                                recordDist[date] = {
-                                    "Summary": {
-                                        vehicleType: {
+                                if date in recordDist:
+                                    if vehicleType in recordDist[date]["Summary"]:
+                                        recordDist[date]["Summary"][vehicleType]["Duration"] += duration
+                                        recordDist[date]["Summary"][vehicleType]["Distance"] += distanceKM
+                                    else:
+                                        recordDist[date]["Summary"][vehicleType] = {
                                             "Duration": duration,
                                             "Distance": distanceKM
                                         }
-                                    },
-                                    "Record List": [dailyRecordDist]
-                                }
+                                    recordDist[date]["Record List"].append(
+                                        dailyRecordDist)
+                                else:
+                                    recordDist[date] = {
+                                        "Summary": {
+                                            vehicleType: {
+                                                "Duration": duration,
+                                                "Distance": distanceKM
+                                            }
+                                        },
+                                        "Record List": [dailyRecordDist]
+                                    }
+
+        except:
+            try:
+                targetfile = 'Takeout/定位記錄/Semantic Location History/2022/2022_MAY.json'
+                with zipfile_ob.open(targetfile, mode='r') as f:
+                    zipinfo = json.load(f)
+                    for dict in zipinfo["timelineObjects"]:
+                        for key, value in dict.items():
+                            if key == "activitySegment":
+                                if all(k in value for k in ("distance", "activityType", "duration")):
+                                    vehicleType = value["activityType"]
+                                    if vehicleType == "UNKNOWN_ACTIVITY_TYPE":
+                                        continue
+
+                                    startTime = datetime.datetime.strptime(
+                                        value["duration"]["startTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
+                                    endTime = datetime.datetime.strptime(
+                                        value["duration"]["endTimestamp"][:19], '%Y-%m-%dT%H:%M:%S')
+                                    duration = int((
+                                        endTime - startTime).total_seconds() / 60)
+                                    date = value["duration"]["startTimestamp"].split("T")[
+                                        0]
+                                    distanceKM = round(
+                                        (value["distance"] / 1000), 3)
+
+                                    dailyRecordDist = {
+                                        "Type": vehicleType,
+                                        "Duration": duration,
+                                        "Distance": distanceKM
+                                    }
+
+                                    if date in recordDist:
+                                        if vehicleType in recordDist[date]["Summary"]:
+                                            recordDist[date]["Summary"][vehicleType]["Duration"] += duration
+                                            recordDist[date]["Summary"][vehicleType]["Distance"] += distanceKM
+                                        else:
+                                            recordDist[date]["Summary"][vehicleType] = {
+                                                "Duration": duration,
+                                                "Distance": distanceKM
+                                            }
+                                        recordDist[date]["Record List"].append(
+                                            dailyRecordDist)
+                                    else:
+                                        recordDist[date] = {
+                                            "Summary": {
+                                                vehicleType: {
+                                                    "Duration": duration,
+                                                    "Distance": distanceKM
+                                                }
+                                            },
+                                            "Record List": [dailyRecordDist]
+                                        }
+            except:
+                response = app.response_class(
+                    response=json.dumps({
+                        "message": "找不到五月的定位紀錄",
+                    }),
+                    status=400,
+                    mimetype='application/json'
+                )
+                return response
         response = app.response_class(
             response=json.dumps(recordDist),
             status=200,
             mimetype='application/json'
         )
+
         # print(response)
         return response
 

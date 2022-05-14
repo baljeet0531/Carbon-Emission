@@ -169,6 +169,7 @@ p {
     width: 100vw;
     top: 67px;
     left: 0;
+    line-height: 31px;
 
     display: grid;
     grid-template-columns: 90px 90px;
@@ -178,8 +179,6 @@ p {
 
 #today_chart_button,
 #weekly_chart_button {
-    vertical-align: middle;
-
     background-color: #e8e6e6;
     border-radius: 15px;
 }
@@ -188,7 +187,6 @@ p {
     width: 100%;
     font-size: 20px;
     font-weight: 600;
-    line-height: 30px;
 }
 
 #chart_div {
@@ -199,6 +197,7 @@ p {
     left: 0;
 
     display: block;
+    line-height: 274px;
 }
 
 #cont_text_div {

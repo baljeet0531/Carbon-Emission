@@ -23,7 +23,7 @@ const cachedFiles = [
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v100';
+const cacheKey = 'demo-sw-v109';
 
 self.addEventListener('install', event => {
     console.log(`${cacheKey} is installed`)

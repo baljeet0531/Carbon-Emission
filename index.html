@@ -146,10 +146,10 @@
         </div>
         <div id="piechart_page" class="mySlides fade">
             <div id="chart_btn_div">
-                <div id="today_chart_button">
+                <div id="today_chart_button" onclick="drawDonut('TodayRecord')">
                     <p class="button">今日</p>
                 </div>
-                <div id="weekly_chart_button">
+                <div id="weekly_chart_button" onclick="drawDonut('WeekRecord')">
                     <p class="button">本週</p>
                 </div>
             </div>
@@ -228,7 +228,7 @@
         </div>
         <div id="dot_div" style="text-align:center">
             <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2), drawDonut()"></span>
+            <span class="dot" onclick="currentSlide(2), drawDonut('TodayRecord')"></span>
             <span class="dot" onclick="currentSlide(3), drawTable()"></span>
         </div>
     </div>
@@ -371,13 +371,13 @@
             target="_blank">https://takeout.google.com/settings/takeout/custom/location_history</a>
         <form onsubmit="return send()" method="POST">
             <label id="choose_file_btn">
-                <input id="chosen-file" type="file" accept=".zip,.rar,.7zip"
-                    onchange="document.getElementById('choose_file_value').innerHTML = value" style="display: none;" />
+                <input id="chosen-file" type="file" accept=".zip"
+                    oninput="document.getElementById('choose_file_value').innerHTML = value" style="display: none;" />
                 匯入檔案
             </label>
             <p id="choose_file_value"></p>
             <label id="submit_file_btn">
-                <input type="submit" value="Submit" style="display: none;" />
+                <input id="submit-file" type="submit" value="Submit" style="display: none;" />
                 提交檔案
             </label>
         </form>
@@ -550,19 +550,11 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(chartSetting);
 
         var chartData, chartOptions;
 
-        function drawChart() {
-            chartData = google.visualization.arrayToDataTable([
-                ['Type', 'Distance'],
-                ['汽車', 30],
-                ['走路', 25],
-                ['腳踏車', 35],
-                ['機車', 10],
-            ]);
-
+        function chartSetting() {
             chartOptions = {
                 pieHole: 0.4,
                 legend: {
@@ -573,9 +565,12 @@
                 },
                 slices: {
                     0: { color: '#1E8981' },
-                    1: { color: '#5CA6A1' },
-                    2: { color: '#8EC3C1' },
-                    3: { color: '#BEE0E1' },
+                    1: { color: '#3D9891' },
+                    2: { color: '#5CA6A1' },
+                    3: { color: '#75B5B1' },
+                    4: { color: '#8EC3C1' },
+                    5: { color: '#A6D2D1' },
+                    6: { color: '#BEE0E1' },
                 },
                 chartArea: {
                     left: 'calc((100vw - 274px)/2)', top: '5%', width: '80%', height: '80%'
@@ -587,14 +582,40 @@
             };
         }
 
-        var chartFirstClick = true;
-
-        function drawDonut() {
-            if (chartFirstClick) {
-                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                chart.draw(chartData, chartOptions);
-                chartFirstClick = false;
+        function drawDonut(recordType) {
+            if (recordType == "TodayRecord") {
+                document.getElementById("today_chart_button").style.backgroundColor = "#6bcbca"
+                document.getElementById("weekly_chart_button").style.backgroundColor = "#e8e6e6"
             }
+            else if (recordType == "WeekRecord") {
+                document.getElementById("weekly_chart_button").style.backgroundColor = "#6bcbca"
+                document.getElementById("today_chart_button").style.backgroundColor = "#e8e6e6"
+            }
+            else {
+                return
+            }
+
+            if ((localStorage.getItem(recordType) == "-") || !localStorage.getItem(recordType)) {
+                document.getElementById('chart_div').innerHTML = "<p>沒有紀錄</p>";
+                return
+            }
+            else {
+                record = JSON.parse(localStorage.getItem(recordType))
+                chartData = google.visualization.arrayToDataTable([
+                    ['Type', 'Distance'],
+                    ['汽車', record["Car"]],
+                    ['機車', record["Motorcycle"]],
+                    ['腳踏車', record["Bike"]],
+                    ['走路', record["Walk"]],
+                    ['火車', record["Train"]],
+                    ['公車', record["Bus"]],
+                    ['捷運', record["Subway"]],
+                ]);
+            }
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(chartData, chartOptions);
         }
     </script>
     <script>
@@ -643,25 +664,36 @@
 
 
             let chosen_file = document.getElementById("chosen-file").files[0];
+            if (!chosen_file) {
+                document.getElementById("choose_file_value").innerHTML = "找不到檔案"
+                return false
+            }
+            if (chosen_file.name.slice(-3) != "zip") {
+                document.getElementById("choose_file_value").innerHTML = "檔案格式不符合"
+                return false
+            }
             let formData = new FormData();
 
             formData.append("file", chosen_file);
 
-            document.getElementById("choose_file_value").innerHTML = "等待結果中<br>這可能會花一點時間"
+            document.getElementById("choose_file_value").innerHTML = "等待結果中<br>這可能會花幾分鐘時間"
+            document.getElementById("submit-file").disabled = true;
+            document.getElementById("chosen-file").disabled = true;
 
             fetch('/upload', {
                 method: "POST", body: formData
             }).then((response) => {
                 return response.json()
             }).then(function (data) {
+                if (data["message"]) {
+                    document.getElementById("choose_file_value").innerHTML = data["message"];
+                    return
+                }
                 var co2eWeek = 0.0;
                 var distWeek = 0.0;
                 var sendDay = new Date()
                 var updateDate = sendDay.toISOString().split("T")[0];
                 localStorage.setItem("UpdateDate", updateDate);
-
-
-
                 // 算%數
                 //chartData = google.visualization.arrayToDataTable([
                 //     ['Type', 'Distance'],
@@ -671,12 +703,23 @@
                 //     ['機車', 10],
                 // ]);
 
+                var weekDistMotorcycle = 0.0
+                var weekDistCar = 0.0
+                var weekDistTrain = 0.0
+                var weekDistWalk = 0.0
+                var weekDistBike = 0.0
+                var weekDistBus = 0.0
+                var weekDistSubway = 0.0
 
                 console.log(data)
                 for (i = 0; i < 7; i++) {
-                    co2eDay = 0
-                    distDay = 0
+                    co2eDay = 0.0
+                    distDay = 0.0
                     date = getDateOfWeek(sendDay, i)
+                    todayDay = sendDay.getDay() - 1
+                    if (todayDay == -1) {
+                        todayDay = 6;
+                    }
                     try {
                         console.log(data[date])
                         if (!data[date]) {
@@ -687,38 +730,45 @@
                             co2e = dist * 0.11
                             co2eDay += co2e;
                             distDay += dist;
+                            weekDistCar += dist
                         }
                         if (data[date]["Summary"]["MOTORCYCLING"]) {
                             dist = data[date]["Summary"]["MOTORCYCLING"]["Distance"]
                             co2e = dist * 0.1
                             co2eDay += co2e;
                             distDay += dist;
+                            weekDistMotorcycle += dist
                         }
                         if (data[date]["Summary"]["IN_BUS"]) {
                             dist = data[date]["Summary"]["IN_BUS"]["Distance"]
                             co2e = dist * 0.04
                             co2eDay += co2e;
                             distDay += dist;
+                            weekDistBus += dist;
                         }
                         if (data[date]["Summary"]["IN_SUBWAY"]) {
                             dist = data[date]["Summary"]["IN_SUBWAY"]["Distance"]
                             co2e = dist * 0.04
                             co2eDay += co2e;
                             distDay += dist;
+                            weekDistSubway += dist
                         }
                         if (data[date]["Summary"]["IN_TRAIN"]) {
                             dist = data[date]["Summary"]["IN_TRAIN"]["Distance"]
                             co2e = dist * 0.06
                             co2eDay += co2e;
                             distDay += dist;
+                            weekDistTrain += dist;
                         }
                         if (data[date]["Summary"]["CYCLING"]) {
                             dist = data[date]["Summary"]["CYCLING"]["Distance"]
                             distDay += dist;
+                            weekDistBike += dist;
                         }
                         if (data[date]["Summary"]["WALKING"]) {
                             dist = data[date]["Summary"]["WALKING"]["Distance"]
                             distDay += dist;
+                            weekDistWalk += dist;
                         }
 
                     }
@@ -729,23 +779,42 @@
 
                     co2eWeek += co2eDay
                     distWeek += distDay
+                    console.log((data[date]["Summary"]["MOTORCYCLING"]["Distance"] ? data[date]["Summary"]["MOTORCYCLING"]["Distance"] : 0).toFixed(2))
 
-                    todayDay = sendDay.getDay() - 1
-                    if (todayDay == -1) {
-                        todayDay = 6;
-                    }
                     if (i == todayDay) {
+                        todayRecord = JSON.parse(`{
+                            "Motorcycle": ${(data[date]["Summary"]["MOTORCYCLING"]["Distance"] ? data[date]["Summary"]["MOTORCYCLING"]["Distance"] : 0).toFixed(2)},
+                            "Car": ${(data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"] ? data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"] : 0).toFixed(2)},
+                            "Train": ${(data[date]["Summary"]["IN_TRAIN"]["Distance"] ? data[date]["Summary"]["IN_TRAIN"]["Distance"] : 0).toFixed(2)},
+                            "Walk": ${(data[date]["Summary"]["WALKING"]["Distance"] ? data[date]["Summary"]["WALKING"]["Distance"] : 0).toFixed(2)},
+                            "Bike": ${(data[date]["Summary"]["CYCLING"]["Distance"] ? data[date]["Summary"]["CYCLING"]["Distance"] : 0).toFixed(2)},
+                            "Bus": ${(data[date]["Summary"]["IN_BUS"]["Distance"] ? data[date]["Summary"]["IN_BUS"]["Distance"] : 0).toFixed(2)},
+                            "Subway": ${(data[date]["Summary"]["IN_SUBWAY"]["Distance"] ? data[date]["Summary"]["IN_SUBWAY"]["Distance"] : 0).toFixed(2)}
+                        }`)
+                        localStorage.setItem("TodayRecord", JSON.stringify(todayRecord))
                         localStorage.setItem("TodayCO2E", co2eDay.toFixed(2));
                         localStorage.setItem("TodayDist", distDay.toFixed(2));
                     }
                 }
+                weekRecord = JSON.parse(`{
+                    "Motorcycle": ${weekDistMotorcycle.toFixed(2)},
+                    "Car": ${weekDistCar.toFixed(2)},
+                    "Train": ${weekDistTrain.toFixed(2)},
+                    "Walk": ${weekDistWalk.toFixed(2)},
+                    "Bike": ${weekDistBike.toFixed(2)},
+                    "Bus": ${weekDistBus.toFixed(2)},
+                    "Subway": ${weekDistSubway.toFixed(2)}
+                }`)
+                localStorage.setItem("WeekRecord", JSON.stringify(weekRecord))
                 localStorage.setItem("WeekCO2E", co2eWeek.toFixed(2));
                 localStorage.setItem("WeekDist", distWeek.toFixed(2));
 
                 showInfo();
                 document.getElementById("choose_file_value").innerHTML = "更新完成"
+                document.getElementById("submit-file").disabled = false;
+                document.getElementById("chosen-file").disabled = false;
             }).catch((error) => {
-                console.log(error);
+                console.log(error)
             });
 
 
