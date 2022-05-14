@@ -1,3 +1,5 @@
+window.location.hash = "#home"
+
 function listenForWaitingServiceWorker(reg, callback) {
     function awaitStateChange() {
         reg.installing.addEventListener('statechange', function () {
