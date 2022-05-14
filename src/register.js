@@ -25,6 +25,11 @@ function showPrev() {
     }
 }
 function showNext(step) {
+
+    if (step == "longDistanceVehicle" && longDistanceVehicle) {
+        localStorage.setItem("studentID", studentID);
+        localStorage.setItem("studentName", studentName);
+    }
     if ((step == "") || (step == "SchoolVehicle" && schoolVehicle) || (step == "longDistanceVehicle" && longDistanceVehicle) || (step == "frequency" && document.querySelector('#freq_input_div input').value)) {
         registerPage = document.getElementsByClassName("regPage");
         for (i = 0; i < registerPage.length; i++) {
@@ -295,22 +300,22 @@ function scanImage() {
     console.timeEnd()
 };
 
-function showHomepage(state) {
-    if (!localStorage.getItem("UpdateDate")) {
-        localStorage.setItem("UpdateDate", "-")
-        localStorage.setItem("WeekCO2E", "-")
-        localStorage.setItem("WeekDist", "-")
-        localStorage.setItem("WeekRecord", "-")
-    }
-    if (state == "register") {
-        localStorage.setItem("studentID", studentID);
-        localStorage.setItem("studentName", studentName);
-    }
-    if (localStorage.getItem("UpdateDate") != (new Date().toISOString().split("T")[0])) {
+function showHomepage() {
+    setLocalItem("UpdateDate");
+    setLocalItem("WeekCO2E")
+    setLocalItem("WeekDist")
+    setLocalItem("WeekRecord")
+    setLocalItem("TodayCO2E")
+    setLocalItem("TodayDist")
+    setLocalItem("TodayRecord")
+
+    if (localStorage.getItem("UpdateDate") != (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split("T")[0]
+    )) {
         localStorage.setItem("TodayCO2E", "-")
         localStorage.setItem("TodayDist", "-")
         localStorage.setItem("TodayRecord", "-")
     }
+
     showInfo()
     document.getElementById("user_info").innerHTML = "ID：" + studentID + "<br>姓名：" + studentName
     document.querySelector("#rank_1st td:nth-child(2)").innerHTML = "<p>" + studentName + "</p>";
@@ -325,4 +330,10 @@ function showInfo() {
     document.getElementById("daily_co2e_value").innerHTML = localStorage.getItem("TodayCO2E");
     document.getElementById("weekly_co2e_value").innerHTML = localStorage.getItem("WeekCO2E") + " kg CO<sub>2</sub>e";
     document.querySelector("#rank_1st td:nth-child(3)").innerHTML = "<p>" + localStorage.getItem("WeekCO2E") + " kg/CO<sub>2</sub>e</p>";
+}
+
+function setLocalItem(key) {
+    if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, "-")
+    }
 }

@@ -507,8 +507,10 @@ table {
     font-size: 18px;
 }
 
-#choose_file_btn,
-#submit_file_btn {
+#choose_file_btn_first,
+#submit_file_btn_first,
+#choose_file_btn_update,
+#submit_file_btn_update {
     display: block;
     position: relative;
     width: 110px;
@@ -522,16 +524,18 @@ table {
     margin-bottom: 15px;
 }
 
-#choose_file_btn {
+#choose_file_btn_first,
+#choose_file_btn_update {
     left: 41px;
     color: black;
     background-color: #e8e6e6;
 }
 
-#choose_file_value {
+#choose_file_value_first,
+#choose_file_value_update {
     display: table-cell;
     position: relative;
-    height: 25vw;
+    height: 20vh;
     width: 316px;
     left: calc((100vw - 316px)/2);
     font-size: 16px;
@@ -541,7 +545,8 @@ table {
     border-radius: 30px;
 }
 
-#submit_file_btn {
+#submit_file_btn_first,
+#submit_file_btn_update {
     left: calc(100vw - 151px);
     color: white;
     background-color: #6bcbca;

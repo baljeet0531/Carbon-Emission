@@ -110,17 +110,79 @@
             </div>
             <div class="btn_grid">
                 <p class="back_btn" onclick="showPrev()">上一題</p>
-                <p class="next_btn" onclick="showHomepage('register')">完成</p>
+                <p class="next_btn" onclick="showNext('longDistanceVehicle')">完成</p>
             </div>
         </div>
-        <!-- <div id="importStep1-4" class="regPage fade">
-            <a href="https://takeout.google.com/settings/takeout/custom/location_history"
-                target="_blank">"https://takeout.google.com/settings/takeout/custom/location_history"</a>
+        <div id="intro1" class="regPage fade">
+            <p class="title">恭喜你完成調查！<br>APP會自動計算你的平均碳排</p>
+            <p class="title">接下來<br>將執行簡單的幾個步驟<br>幫助你輕易上手</p>
             <div class="btn_grid">
-                <p class="back_btn" onclick="showPrev()">上一題</p>
-                <p class="next_btn" onclick="showHomepage('register')">完成</p>
+                <p class="next_btn" onclick="showNext('')">下一頁</p>
             </div>
-        </div> -->
+        </div>
+        <div id="intro2" class="regPage fade">
+            <p class="title">首先，<br>本APP會藉由<mark>匯入google定位紀錄</mark><br>來判斷你的移動距離<br>和使用的交通工具</p>
+            <p class="title">若要更新紀錄<br>需要重新匯入新的定位紀錄檔案</p>
+            <p class="title">請依循下述步驟<br>匯入定位紀錄</p>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一頁</p>
+                <p class="next_btn" onclick="showNext('')">下一頁</p>
+            </div>
+        </div>
+        <div id="import1" class="regPage fade">
+            <div class="step">
+                <p class="step_number">STEP1：</p>
+                <p class="step_content">點選下方網址</p>
+            </div>
+            <a id="import_link" href="https://takeout.google.com/settings/takeout/"
+                target="_blank">https://takeout.google.com/settings/takeout/custom/location_history</a>
+            <div class="step">
+                <p class="step_number">STEP2：</p>
+                <p class="step_content">在"<mark>選取要納入的資料</mark>"僅勾選"<mark>定位紀錄</mark>"並點擊"<mark>下一步</mark>"
+                </p>
+            </div>
+            <div class="step">
+                <p class="step_number">STEP3：</p>
+                <p class="step_content">在"<mark>選擇檔案類型</mark>、匯出的頻率和目標"
+                    1)"傳送方式"選擇以"<b>電子郵件傳送下載連結</b>"
+                    2)"檔案類型"選擇".<b>zip</b>"
+                    3)"檔案大小"選擇"<b>2GB</b>"
+                    4)點擊"建立匯出作業"
+                </p>
+            </div>
+            <div class="step">
+                <p class="step_number">STEP4：</p>
+                <p class="step_content">等待畫面挑轉或收到電子郵件後(可能會花幾分鐘作業時間)，將檔案下載到手機
+                </p>
+            </div>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一頁</p>
+                <p class="next_btn" onclick="showNext('')">下一頁</p>
+            </div>
+        </div>
+        <div id="import2" class="regPage fade">
+            <div class="step">
+                <p class="step_number">STEP5：</p>
+                <p class="step_content">點擊此頁面"匯入檔案"按鍵選擇下載的檔案，接著點擊"提交檔案"</p>
+            </div>
+            <form onsubmit="return send('_first')" method="POST">
+                <label id="choose_file_btn_first">
+                    <input id="chosen_file_first" type="file" accept=".zip"
+                        oninput="document.getElementById('choose_file_value_first').innerHTML = value"
+                        style="display: none;" />
+                    匯入檔案
+                </label>
+                <p id="choose_file_value_first"></p>
+                <label id="submit_file_btn_first">
+                    <input id="submit_file_first" type="submit" value="Submit" style="display: none;" />
+                    提交檔案
+                </label>
+            </form>
+            <div class="btn_grid">
+                <p class="back_btn" onclick="showPrev()">上一頁</p>
+                <p class="next_btn" onclick="showHomepage()">下一頁</p>
+            </div>
+        </div>
     </div>
 
 
@@ -369,15 +431,16 @@
         </p>
         <a id="update_link" href="https://takeout.google.com/settings/takeout/custom/location_history"
             target="_blank">https://takeout.google.com/settings/takeout/custom/location_history</a>
-        <form onsubmit="return send()" method="POST">
-            <label id="choose_file_btn">
-                <input id="chosen-file" type="file" accept=".zip"
-                    oninput="document.getElementById('choose_file_value').innerHTML = value" style="display: none;" />
+        <form onsubmit="return send('_update')" method="POST">
+            <label id="choose_file_btn_update">
+                <input id="chosen_file_update" type="file" accept=".zip"
+                    oninput="document.getElementById('choose_file_value_update').innerHTML = value"
+                    style="display: none;" />
                 匯入檔案
             </label>
-            <p id="choose_file_value"></p>
-            <label id="submit_file_btn">
-                <input id="submit-file" type="submit" value="Submit" style="display: none;" />
+            <p id="choose_file_value_update"></p>
+            <label id="submit_file_btn_update">
+                <input id="submit_file_update" type="submit" value="Submit" style="display: none;" />
                 提交檔案
             </label>
         </form>
@@ -468,7 +531,7 @@
             </div>
             <div class="answer">
                 <p class="answer_number">STEP2：</p>
-                <p class="answer_content">在"選取要納入的資料"僅勾選"定位紀錄"並點擊"下一步“
+                <p class="answer_content">在"選取要納入的資料"僅勾選"定位紀錄"並點擊"下一步"
                 </p>
             </div>
             <div class="answer">
@@ -660,39 +723,40 @@
         }
     </script>
     <script>
-        function send() {
+        function send(str) {
 
 
-            let chosen_file = document.getElementById("chosen-file").files[0];
+            let chosen_file = document.getElementById("chosen_file" + str).files[0];
             if (!chosen_file) {
-                document.getElementById("choose_file_value").innerHTML = "找不到檔案"
+                document.getElementById("choose_file_value" + str).innerHTML = "找不到檔案"
                 return false
             }
             if (chosen_file.name.slice(-3) != "zip") {
-                document.getElementById("choose_file_value").innerHTML = "檔案格式不符合"
+                document.getElementById("choose_file_value" + str).innerHTML = "檔案格式不符合"
                 return false
             }
             let formData = new FormData();
 
             formData.append("file", chosen_file);
 
-            document.getElementById("choose_file_value").innerHTML = "等待結果中<br>這可能會花幾分鐘時間"
-            document.getElementById("submit-file").disabled = true;
-            document.getElementById("chosen-file").disabled = true;
+            document.getElementById("choose_file_value" + str).innerHTML = "等待結果中<br>這可能會花幾分鐘時間"
+            document.getElementById("submit_file" + str).disabled = true;
+            document.getElementById("chosen_file" + str).disabled = true;
 
             fetch('/upload', {
                 method: "POST", body: formData
             }).then((response) => {
                 return response.json()
             }).then(function (data) {
+                document.getElementById("chosen_file" + str).value = ""
                 if (data["message"]) {
-                    document.getElementById("choose_file_value").innerHTML = data["message"];
+                    document.getElementById("choose_file_value" + str).innerHTML = data["message"];
                     return
                 }
                 var co2eWeek = 0.0;
                 var distWeek = 0.0;
                 var sendDay = new Date()
-                var updateDate = sendDay.toISOString().split("T")[0];
+                var updateDate = new Date(sendDay.getTime() - sendDay.getTimezoneOffset() * 60000).toISOString().split("T")[0]
                 localStorage.setItem("UpdateDate", updateDate);
                 // 算%數
                 //chartData = google.visualization.arrayToDataTable([
@@ -711,6 +775,14 @@
                 var weekDistBus = 0.0
                 var weekDistSubway = 0.0
 
+                var dayDistMotorcycle = 0.0
+                var dayDistCar = 0.0
+                var dayDistTrain = 0.0
+                var dayDistWalk = 0.0
+                var dayDistBike = 0.0
+                var dayDistBus = 0.0
+                var dayDistSubway = 0.0
+
                 console.log(data)
                 for (i = 0; i < 7; i++) {
                     co2eDay = 0.0
@@ -725,50 +797,71 @@
                         if (!data[date]) {
                             continue
                         }
-                        if (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]) {
+                        if (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]) {
                             dist = data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]
                             co2e = dist * 0.11
                             co2eDay += co2e;
                             distDay += dist;
                             weekDistCar += dist
+                            if (i == todayDay) {
+                                dayDistCar = data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]
+                            }
                         }
-                        if (data[date]["Summary"]["MOTORCYCLING"]) {
+                        if (data[date]["Summary"]["MOTORCYCLING"]["Distance"]) {
                             dist = data[date]["Summary"]["MOTORCYCLING"]["Distance"]
                             co2e = dist * 0.1
                             co2eDay += co2e;
                             distDay += dist;
                             weekDistMotorcycle += dist
+                            if (i == todayDay) {
+                                dayDistMotorcycle = data[date]["Summary"]["MOTORCYCLING"]["Distance"]
+                            }
                         }
-                        if (data[date]["Summary"]["IN_BUS"]) {
+                        if (data[date]["Summary"]["IN_BUS"]["Distance"]) {
                             dist = data[date]["Summary"]["IN_BUS"]["Distance"]
                             co2e = dist * 0.04
                             co2eDay += co2e;
                             distDay += dist;
                             weekDistBus += dist;
+                            if (i == todayDay) {
+                                dayDistBus = data[date]["Summary"]["IN_BUS"]["Distance"]
+                            }
                         }
-                        if (data[date]["Summary"]["IN_SUBWAY"]) {
+                        if (data[date]["Summary"]["IN_SUBWAY"]["Distance"]) {
                             dist = data[date]["Summary"]["IN_SUBWAY"]["Distance"]
                             co2e = dist * 0.04
                             co2eDay += co2e;
                             distDay += dist;
                             weekDistSubway += dist
+                            if (i == todayDay) {
+                                dayDistSubway = data[date]["Summary"]["IN_SUBWAY"]["Distance"]
+                            }
                         }
-                        if (data[date]["Summary"]["IN_TRAIN"]) {
+                        if (data[date]["Summary"]["IN_TRAIN"]["Distance"]) {
                             dist = data[date]["Summary"]["IN_TRAIN"]["Distance"]
                             co2e = dist * 0.06
                             co2eDay += co2e;
                             distDay += dist;
                             weekDistTrain += dist;
+                            if (i == todayDay) {
+                                dayDistTrain = data[date]["Summary"]["IN_TRAIN"]["Distance"]
+                            }
                         }
-                        if (data[date]["Summary"]["CYCLING"]) {
+                        if (data[date]["Summary"]["CYCLING"]["Distance"]) {
                             dist = data[date]["Summary"]["CYCLING"]["Distance"]
                             distDay += dist;
                             weekDistBike += dist;
+                            if (i == todayDay) {
+                                dayDistBike = data[date]["Summary"]["CYCLING"]["Distance"]
+                            }
                         }
-                        if (data[date]["Summary"]["WALKING"]) {
+                        if (data[date]["Summary"]["WALKING"]["Distance"]) {
                             dist = data[date]["Summary"]["WALKING"]["Distance"]
                             distDay += dist;
                             weekDistWalk += dist;
+                            if (i == todayDay) {
+                                dayDistWalk = data[date]["Summary"]["WALKING"]["Distance"]
+                            }
                         }
 
                     }
@@ -776,20 +869,18 @@
                         console.log(err)
                     }
 
-
                     co2eWeek += co2eDay
                     distWeek += distDay
-                    console.log((data[date]["Summary"]["MOTORCYCLING"]["Distance"] ? data[date]["Summary"]["MOTORCYCLING"]["Distance"] : 0).toFixed(2))
 
                     if (i == todayDay) {
                         todayRecord = JSON.parse(`{
-                            "Motorcycle": ${(data[date]["Summary"]["MOTORCYCLING"]["Distance"] ? data[date]["Summary"]["MOTORCYCLING"]["Distance"] : 0).toFixed(2)},
-                            "Car": ${(data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"] ? data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"] : 0).toFixed(2)},
-                            "Train": ${(data[date]["Summary"]["IN_TRAIN"]["Distance"] ? data[date]["Summary"]["IN_TRAIN"]["Distance"] : 0).toFixed(2)},
-                            "Walk": ${(data[date]["Summary"]["WALKING"]["Distance"] ? data[date]["Summary"]["WALKING"]["Distance"] : 0).toFixed(2)},
-                            "Bike": ${(data[date]["Summary"]["CYCLING"]["Distance"] ? data[date]["Summary"]["CYCLING"]["Distance"] : 0).toFixed(2)},
-                            "Bus": ${(data[date]["Summary"]["IN_BUS"]["Distance"] ? data[date]["Summary"]["IN_BUS"]["Distance"] : 0).toFixed(2)},
-                            "Subway": ${(data[date]["Summary"]["IN_SUBWAY"]["Distance"] ? data[date]["Summary"]["IN_SUBWAY"]["Distance"] : 0).toFixed(2)}
+                            "Motorcycle": ${dayDistMotorcycle.toFixed(2)},
+                            "Car": ${dayDistCar.toFixed(2)},
+                            "Train": ${dayDistTrain.toFixed(2)},
+                            "Walk": ${dayDistWalk.toFixed(2)},
+                            "Bike": ${dayDistBike.toFixed(2)},
+                            "Bus": ${dayDistBus.toFixed(2)},
+                            "Subway": ${dayDistSubway.toFixed(2)}
                         }`)
                         localStorage.setItem("TodayRecord", JSON.stringify(todayRecord))
                         localStorage.setItem("TodayCO2E", co2eDay.toFixed(2));
@@ -810,9 +901,9 @@
                 localStorage.setItem("WeekDist", distWeek.toFixed(2));
 
                 showInfo();
-                document.getElementById("choose_file_value").innerHTML = "更新完成"
-                document.getElementById("submit-file").disabled = false;
-                document.getElementById("chosen-file").disabled = false;
+                document.getElementById("choose_file_value" + str).innerHTML = "更新完成"
+                document.getElementById("submit_file" + str).disabled = false;
+                document.getElementById("chosen_file" + str).disabled = false;
             }).catch((error) => {
                 console.log(error)
             });
