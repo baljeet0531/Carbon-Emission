@@ -783,20 +783,22 @@
                 var dayDistBus = 0.0
                 var dayDistSubway = 0.0
 
+                todayDay = sendDay.getDay() - 1
+                if (todayDay == -1) {
+                    todayDay = 6;
+                }
+
                 console.log(data)
-                for (i = 0; i < 7; i++) {
+                for (i = 0; i <= todayDay; i++) {
                     co2eDay = 0.0
                     distDay = 0.0
                     date = getDateOfWeek(sendDay, i)
-                    todayDay = sendDay.getDay() - 1
-                    if (todayDay == -1) {
-                        todayDay = 6;
-                    }
+
                     try {
                         console.log(data[date])
-                        if (!data[date]) {
-                            continue
-                        }
+                        // if (!data[date]) {
+                        //     continue
+                        // }
                         if (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]) {
                             dist = data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]
                             co2e = dist * 0.11
@@ -912,10 +914,9 @@
             return false
         }
 
-
         function getDateOfWeek(date, num) {
-            return (new Date(date.setDate(date.getDate() - date.getDay() + (date.getDay() == 0 ? -6 : 1) + 1 + num)).toISOString().split("T")[0]);
+            nthDate = new Date(date.setDate(date.getDate() - date.getDay() + (date.getDay() == 0 ? -6 : 1) + num))
+            return (new Date(nthDate.getTime() - nthDate.getTimezoneOffset() * 60000).toISOString()).split("T")[0];
         }
-
     </script>
 </body>

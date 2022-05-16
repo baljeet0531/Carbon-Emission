@@ -105,6 +105,9 @@ const frameClass = document.getElementsByClassName("main_frame")
 window.onhashchange = hashChange
 
 function hashChange() {
+    if (!localStorage.getItem("studentID") || !localStorage.getItem("studentName")) {
+        return
+    }
 
     for (i = 0; i < frameClass.length; i++) {
         frameClass[i].style.display = "none";

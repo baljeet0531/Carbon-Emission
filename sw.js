@@ -32,7 +32,7 @@ const cachedFiles = [
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v122';
+const cacheKey = 'demo-sw-v130';
 
 self.addEventListener('install', event => {
     console.log(`${cacheKey} is installed`)
@@ -64,10 +64,10 @@ self.addEventListener('fetch', event => {
 
         const response = await caches.match(event.request)
         if (response) {
-            console.log(`Cache fetch: ${event.request.url}`)
+            // console.log(`Cache fetch: ${event.request.url}`)
             return response
         }
-        console.log(`Network fetch: ${event.request.url}`)
+        // console.log(`Network fetch: ${event.request.url}`)
         return fetch(event.request)
     })())
 })

@@ -301,19 +301,28 @@ function scanImage() {
 };
 
 function showHomepage() {
-    setLocalItem("UpdateDate");
-    setLocalItem("WeekCO2E")
-    setLocalItem("WeekDist")
-    setLocalItem("WeekRecord")
-    setLocalItem("TodayCO2E")
-    setLocalItem("TodayDist")
-    setLocalItem("TodayRecord")
+    initLocalItem("UpdateDate");
+    initLocalItem("WeekCO2E")
+    initLocalItem("WeekDist")
+    initLocalItem("WeekRecord")
+    initLocalItem("TodayCO2E")
+    initLocalItem("TodayDist")
+    initLocalItem("TodayRecord")
 
-    if (localStorage.getItem("UpdateDate") != (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000).toISOString().split("T")[0]
+    var loginDate = new Date()
+    if (localStorage.getItem("UpdateDate") != (new Date(loginDate.getTime() - loginDate.getTimezoneOffset() * 60000).toISOString().split("T")[0]
     )) {
         localStorage.setItem("TodayCO2E", "-")
         localStorage.setItem("TodayDist", "-")
         localStorage.setItem("TodayRecord", "-")
+    }
+
+    var firstDateOfWeek = new Date(getDateOfWeek(loginDate, 0))
+    var offset = (new Date(localStorage.getItem("UpdateDate")).getDate()) - firstDateOfWeek.getDate()
+    if (offset < 0) {
+        localStorage.setItem("WeekCO2E", "-")
+        localStorage.setItem("WeekDist", "-")
+        localStorage.setItem("WeekRecord", "-")
     }
 
     showInfo()
@@ -332,7 +341,7 @@ function showInfo() {
     document.querySelector("#rank_1st td:nth-child(3)").innerHTML = "<p>" + localStorage.getItem("WeekCO2E") + " kg/CO<sub>2</sub>e</p>";
 }
 
-function setLocalItem(key) {
+function initLocalItem(key) {
     if (!localStorage.getItem(key)) {
         localStorage.setItem(key, "-")
     }
