@@ -799,7 +799,7 @@
                         // if (!data[date]) {
                         //     continue
                         // }
-                        if (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]) {
+                        if (data[date]["Summary"]["IN_PASSENGER_VEHICLE"]) {
                             dist = data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]
                             co2e = dist * 0.11
                             co2eDay += co2e;
@@ -809,7 +809,7 @@
                                 dayDistCar = data[date]["Summary"]["IN_PASSENGER_VEHICLE"]["Distance"]
                             }
                         }
-                        if (data[date]["Summary"]["MOTORCYCLING"]["Distance"]) {
+                        if (data[date]["Summary"]["MOTORCYCLING"]) {
                             dist = data[date]["Summary"]["MOTORCYCLING"]["Distance"]
                             co2e = dist * 0.1
                             co2eDay += co2e;
@@ -819,7 +819,7 @@
                                 dayDistMotorcycle = data[date]["Summary"]["MOTORCYCLING"]["Distance"]
                             }
                         }
-                        if (data[date]["Summary"]["IN_BUS"]["Distance"]) {
+                        if (data[date]["Summary"]["IN_BUS"]) {
                             dist = data[date]["Summary"]["IN_BUS"]["Distance"]
                             co2e = dist * 0.04
                             co2eDay += co2e;
@@ -829,7 +829,7 @@
                                 dayDistBus = data[date]["Summary"]["IN_BUS"]["Distance"]
                             }
                         }
-                        if (data[date]["Summary"]["IN_SUBWAY"]["Distance"]) {
+                        if (data[date]["Summary"]["IN_SUBWAY"]) {
                             dist = data[date]["Summary"]["IN_SUBWAY"]["Distance"]
                             co2e = dist * 0.04
                             co2eDay += co2e;
@@ -839,7 +839,7 @@
                                 dayDistSubway = data[date]["Summary"]["IN_SUBWAY"]["Distance"]
                             }
                         }
-                        if (data[date]["Summary"]["IN_TRAIN"]["Distance"]) {
+                        if (data[date]["Summary"]["IN_TRAIN"]) {
                             dist = data[date]["Summary"]["IN_TRAIN"]["Distance"]
                             co2e = dist * 0.06
                             co2eDay += co2e;
@@ -849,7 +849,7 @@
                                 dayDistTrain = data[date]["Summary"]["IN_TRAIN"]["Distance"]
                             }
                         }
-                        if (data[date]["Summary"]["CYCLING"]["Distance"]) {
+                        if (data[date]["Summary"]["CYCLING"]) {
                             dist = data[date]["Summary"]["CYCLING"]["Distance"]
                             distDay += dist;
                             weekDistBike += dist;
@@ -857,7 +857,7 @@
                                 dayDistBike = data[date]["Summary"]["CYCLING"]["Distance"]
                             }
                         }
-                        if (data[date]["Summary"]["WALKING"]["Distance"]) {
+                        if (data[date]["Summary"]["WALKING"]) {
                             dist = data[date]["Summary"]["WALKING"]["Distance"]
                             distDay += dist;
                             weekDistWalk += dist;
