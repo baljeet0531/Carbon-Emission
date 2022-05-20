@@ -15,27 +15,27 @@ from pandas import describe_option
 from sqlalchemy import false, true
 
 
-app = Flask(__name__, static_folder='/')
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'flask'
+application = Flask(__name__, static_folder='/')
+application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+application.config['MYSQL_HOST'] = 'localhost'
+application.config['MYSQL_USER'] = 'root'
+application.config['MYSQL_PASSWORD'] = 'root'
+application.config['MYSQL_DB'] = 'flask'
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./keyfile.json"
 
 
-@app.route("/hello", methods=['GET'])
+@application.route("/hello", methods=['GET'])
 def hello():
     msg = 'hello'
     time.sleep(3)
     return msg
 
 
-mysql = MySQL(app)
+mysql = MySQL(application)
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@application.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'GET':
         return "Login via the login Form"
@@ -51,14 +51,14 @@ def login():
         return f"Done!!"
 
 
-@app.route('/upload', methods=['POST'])
+@application.route('/upload', methods=['POST'])
 def upload():
 
     if request.method == 'POST':
 
         recordDist = {}
 
-        # app.logger.info(request.files)
+        # application.logger.info(request.files)
         file = request.files['file']
         file_like_object = file.stream._file
         zipfile_ob = zipfile.ZipFile(file_like_object)
@@ -167,7 +167,7 @@ def upload():
                                             "Record List": [dailyRecordDist]
                                         }
             except:
-                response = app.response_class(
+                response = application.response_class(
                     response=json.dumps({
                         "message": "找不到五月的定位紀錄",
                     }),
@@ -175,7 +175,7 @@ def upload():
                     mimetype='application/json'
                 )
                 return response
-        response = app.response_class(
+        response = application.response_class(
             response=json.dumps(recordDist),
             status=200,
             mimetype='application/json'
@@ -188,7 +188,7 @@ def upload():
 client = vision.ImageAnnotatorClient()
 
 
-@app.route("/scan", methods=['POST'])
+@application.route("/scan", methods=['POST'])
 def scan():
 
     # file_name = os.path.abspath(
@@ -204,7 +204,7 @@ def scan():
 
     if texts != []:
         print('\n"{}"'.format(texts[0].description))
-        resp = app.response_class(
+        resp = application.response_class(
             response=json.dumps({
                 "message": "未偵測到學生證號碼",
             }),
@@ -223,7 +223,7 @@ def scan():
                 nameIndex = studentIDIndex - 1
                 name = descriptionList[nameIndex]
                 print(f"{studentID}\n{name}")
-                resp = app.response_class(
+                resp = application.response_class(
                     response=json.dumps({
                         "ID": studentID,
                         "Name": name
@@ -241,7 +241,7 @@ def scan():
         #         nameIndex = studentIDIndex - 1
         #         name = texts[nameIndex].description
         #         print(f"{studentID}\n{name}")
-        #         resp = app.response_class(
+        #         resp = application.response_class(
         #             response=json.dumps({
         #                 "ID": studentID,
         #                 "Name": name
@@ -251,7 +251,7 @@ def scan():
         #         )
         #         break
     else:
-        resp = app.response_class(
+        resp = application.response_class(
             response=json.dumps({
                 "message": "未偵測到文字",
             }),
@@ -269,4 +269,4 @@ def scan():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.run(debug=True)

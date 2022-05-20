@@ -9,6 +9,7 @@ const cachedFiles = [
     './src/6th.png',
     './src/7th.png',
     './src/8th.png',
+    './src/airplane.png',
     './src/app.js',
     './src/bicycle.png',
     './src/bus.png',
@@ -32,7 +33,7 @@ const cachedFiles = [
 ]
 
 // edit this to force re-cache
-const cacheKey = 'demo-sw-v132';
+const cacheKey = 'demo-sw-v136';
 
 self.addEventListener('install', event => {
     console.log(`${cacheKey} is installed`)
