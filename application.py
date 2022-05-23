@@ -1,5 +1,5 @@
 from unittest import result
-from flask import Flask,  request, Response
+from flask import Flask, request, Response
 from flask_mysqldb import MySQL
 import time
 import zipfile
@@ -13,6 +13,9 @@ from google.cloud import vision
 from pandas import describe_option
 
 from sqlalchemy import false, true
+import sys
+
+sys.path.append("/eb-flask")
 
 
 application = Flask(__name__, static_folder='/')
@@ -269,4 +272,5 @@ def scan():
 
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    # application.run('localhost', 5000, debug=True)
+    application.run()
