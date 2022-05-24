@@ -5,18 +5,15 @@ import time
 import zipfile
 import json
 import datetime
-
 import re
 import os
 import io
 from google.cloud import vision
 from pandas import describe_option
-
 from sqlalchemy import false, true
 import sys
 
 sys.path.append("/eb-flask")
-
 
 application = Flask(__name__, static_folder='/')
 application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0

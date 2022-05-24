@@ -1,8 +1,10 @@
 /test/*
 /Takeout/*
 /keyfile.json
-/virt
+/virt/*
+/.ebextensions/*
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
